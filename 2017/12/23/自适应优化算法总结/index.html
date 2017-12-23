@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Super Tensor"/>
+        <meta property="og:title" content="自适应优化算法总结"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2017/12 - Super Tensor</title>
+    <title>自适应优化算法总结 - Super Tensor</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,94 +161,87 @@
 
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2017/12</h1>
+                <div class="post-heading">
+                    <h1>自适应优化算法总结</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Jiyang Qi on
+                        
+                        
+                            2017-12-23
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/自适应/">#自适应</a> <a href="/tags/优化/">#优化</a> <a href="/tags/算法/">#算法</a> <a href="/tags/机器学习/">#机器学习</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2017/12/23/自适应优化算法总结/">
-        <h1 class="post-title archive">
-            自适应优化算法总结
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Jiyang Qi on
-        
-        2017-12-23
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2017/12/22/bash-配置/">
-        <h1 class="post-title archive">
-            bash 配置、技巧
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Jiyang Qi on
-        
-        2017-12-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/12/22/vim-配置/">
-        <h1 class="post-title archive">
-            vim 常用技巧、配置、插件
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Jiyang Qi on
-        
-        2017-12-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/12/22/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-12-22
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>在机器学习中，优化算法即优化模型并使损失尽量减小的算法，我们常用的比如梯度下降就属于优化算法。而从梯度下降法延伸出来的一些优化算法，在应用中遇到的一个问题就是学习速率的选择。</p>
+<ul>
+<li>学习速率选的小，收敛就慢</li>
+<li>学习速率选的大，训练效果不好</li>
 </ul>
+<p>而且一般情况下，我们希望学习速率在开始时比较大，之后随着训练的进行，学习速率能适当调整。于是自适应优化算法就出现了。</p>
+<p>本文将介绍一下四种自适应优化算法:</p>
+<ul>
+<li>Adagrad</li>
+<li>AdaDelta</li>
+<li>RMSprop</li>
+<li>Adam</li>
+</ul>
+<h1 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h1>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
