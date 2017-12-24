@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="boom boom boom">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Jiyang Qi">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="bash 配置、技巧"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="boom boom boom" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Super Tensor"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>bash 配置、技巧 - Super Tensor</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-111519148-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/ai.ico">
+    <link rel="shortcut icon" href="/img/ai.ico">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TensorLover's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/qjy981010">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>bash 配置、技巧</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Jiyang Qi on
+                        
+                        
+                            2017-12-22
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/bash/">#bash</a> <a href="/tags/bashrc/">#bashrc</a> <a href="/tags/配置/">#配置</a> <a href="/tags/技巧/">#技巧</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>作为Linux各大发行版的默认shell，使用bash是Linux使用者必备的技能</p>
+<h1 id="Bash来历"><a href="#Bash来历" class="headerlink" title="Bash来历"></a>Bash来历</h1><p>bash为<a href="https://zh.wikipedia.org/wiki/GNU" target="_blank" rel="noopener">GNU</a>编写的一个命令处理器，他的名称是一个双关语，为Bourne-Again SHell或Born-Again SHell，其中<a href="https://zh.wikipedia.org/wiki/Bourne_shell" target="_blank" rel="noopener">Bourne shell（sh）</a>是之前Unix系统上常用的命令行处理器。之后bash一直沿用至今。</p>
+<h1 id="bash-配置"><a href="#bash-配置" class="headerlink" title="bash 配置"></a>bash 配置</h1><p>一般我们的配置都写在<code>~/.bashrc</code>中，语法为bash语法， 此文件在每次登录或打开新的shell时执行，一般用来配置一些环境变量，定义函数，设置一些别名</p>
+<p>我在这里贴一些通用配置，其他有关archlinux的一些专用配置可以参考<a href="https://github.com/qjy981010/vim-config/blob/master/.bashrc" target="_blank" rel="noopener">我的配置</a></p>
+<h3 id="一堆别名"><a href="#一堆别名" class="headerlink" title="一堆别名"></a>一堆别名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># alias命令可以设置别名</span></span><br><span class="line"><span class="comment"># alias &lt;new cmd&gt;='&lt;origin cmd&gt;'</span></span><br><span class="line"><span class="comment"># 这样以后想执行&lt;origin cmd&gt;时就可以直接执行更短更简单的&lt;new cmd&gt;了</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ls加颜色，通过颜色可辨别文件类型</span></span><br><span class="line"><span class="built_in">alias</span> ls=<span class="string">'ls --color=auto'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># grep高亮，便于马上找到要找的字符串</span></span><br><span class="line"><span class="built_in">alias</span> grep=<span class="string">'grep --color=auto'</span> </span><br><span class="line"><span class="built_in">alias</span> fgrep=<span class="string">'fgrep --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> egrep=<span class="string">'egrep --color=auto'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取自己的公网IP</span></span><br><span class="line"><span class="built_in">alias</span> publicip=<span class="string">'curl ipinfo.io'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查有没有网（不用可怜百度</span></span><br><span class="line"><span class="built_in">alias</span> netcheck=<span class="string">'ping www.baidu.com'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ll为人们约定俗成的全信息列举别名</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">'ls -lh'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 外加列出隐藏目录</span></span><br><span class="line"><span class="built_in">alias</span> la=<span class="string">'ls -lAh'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到上级目录，超实用</span></span><br><span class="line"><span class="built_in">alias</span> ..=<span class="string">'cd ../'</span></span><br><span class="line"><span class="built_in">alias</span> ...=<span class="string">'cd ../../'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 过滤进程</span></span><br><span class="line"><span class="built_in">alias</span> pg=<span class="string">'ps aux |grep -i'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 过滤历史</span></span><br><span class="line"><span class="built_in">alias</span> hg=<span class="string">'history |grep -i'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 过滤当前目录文件</span></span><br><span class="line"><span class="built_in">alias</span> lg=<span class="string">'ls -A |grep -i'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看磁盘使用情况，主要是不加-h选项的话很不舒服，所以就设了个别名</span></span><br><span class="line"><span class="built_in">alias</span> df=<span class="string">'df -Th'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看内存、swap使用情况，-h同上</span></span><br><span class="line"><span class="built_in">alias</span> free=<span class="string">'free -h'</span></span><br></pre></td></tr></table></figure>
+<h3 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h3><h4 id="PATH"><a href="#PATH" class="headerlink" title="PATH"></a>PATH</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:.</span><br></pre></td></tr></table></figure>
+<p>将当前目录加入PATH环境变量。$PATH：决定了shell将到哪些目录中寻找命令或程序，PATH的值是一系列目录，当您运行一个程序时，Linux在这些目录下进行搜寻编译链接。平时，若想运行此目录下的一个可执行文件，必须输入<code>./&lt;file&gt;</code>，但将当前目录加入PATH后，可直接执行<code>&lt;file&gt;</code></p>
+<h4 id="EDITOR"><a href="#EDITOR" class="headerlink" title="EDITOR"></a>EDITOR</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> EDITOR=<span class="string">"vim"</span></span><br></pre></td></tr></table></figure>
+<p>有些时候，大家可能被迫用vi（一个老式编辑器，不好用）</p>
+<p>比如需要修改<code>/etc/sudoers</code>文件时，为了防止用户语法错误导致系统权限问题， 官方一般建议使用<strong>visudo</strong>这个命令，他默认使用vi作为编辑器。这时大家可以执行<code>export EDITOR=&quot;vim&quot;</code>来设置EDITOR这个环境变量，再执行visudo，发现编辑器已经变成了自己熟悉的vim！</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Useful unarchiver!</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">extract</span></span> () &#123;</span><br><span class="line">        <span class="keyword">if</span> [ -f <span class="variable">$1</span> ] ; <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line">                        *.tar.bz2)        tar xjf <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.tar.gz)        tar xzf <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.bz2)                bunzip2 <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.rar)                rar x <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.gz)                gunzip <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.tar)                tar xf <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.tbz2)                tar xjf <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.tgz)                tar xzf <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.zip)                unzip <span class="variable">$1</span>                ;;</span><br><span class="line">                        *.Z)                uncompress <span class="variable">$1</span>        ;;</span><br><span class="line">                        *)                        <span class="built_in">echo</span> <span class="string">"'<span class="variable">$1</span>' cannot be extracted via extract()"</span> ;;</span><br><span class="line">                <span class="keyword">esac</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">"'<span class="variable">$1</span>' is not a valid file"</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以后解压文件直接<code>extract &lt;file&gt;</code>即可，超级实用</p>
+<h1 id="bash-美化"><a href="#bash-美化" class="headerlink" title="bash 美化"></a>bash 美化</h1><p>不要委屈自己，装个powerline吧，用包管理工具安装我就不说了，下面是用pip装的步骤：</p>
+<ul>
+<li><p>没有pip的同学先装pip</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装powerline</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install powerline-status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>powerline 中要用到特殊的字体，所以需要去下载字体</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/powerline/fonts &amp;&amp; ./fonts/install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之后我们要每次启动bash时运行powerline，首先获取powerline的位置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pip show powerline-status</span><br><span class="line"><span class="comment"># 下面是我的输出</span></span><br><span class="line">Name: powerline-status</span><br><span class="line">Version: 2.6</span><br><span class="line">Summary: The ultimate statusline/prompt utility.</span><br><span class="line">Home-page: https://github.com/powerline/powerline</span><br><span class="line">Author: Kim Silkebaekken</span><br><span class="line">Author-email: kim.silkebaekken+vim@gmail.com</span><br><span class="line">License: MIT</span><br><span class="line">Location: /usr/lib/python3.6/site-packages</span><br><span class="line">Requires:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到我的Location是<code>/usr/lib/python3.6/site-packages/</code>，后面再加<code>powerline/bindings/bash/powerline.sh</code>就得到了我们要的powerline的位置。再在<code>.bashrc</code>中加一行，运行上面得到的<strong>powerline.sh</strong>就行了。我要加的是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 最前面的点是运行命令，与source命令相同</span></span><br><span class="line">. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还要让你的终端支持256种颜色，还是在<code>~/.bashrc</code>里加一句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TERM=<span class="string">"screen-256color"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="其他shell"><a href="#其他shell" class="headerlink" title="其他shell"></a>其他shell</h1><p>如果想尽可能提高效率，推荐大家使用<strong>fish</strong>这个shell，或者也可以用<strong>zsh</strong>，这里并不是说大家不用学bash了，因为bash到哪里都能用，但是另外两个不能，所以bash还是要学好。</p>
+<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><p>zsh是一个兼容bash，可扩展的shell，相当于一个给你配置好的bash。他还有很多插件，这里就不一一介绍了。推荐Oh-My-Zsh。</p>
+<h3 id="宇宙第一shell-fish"><a href="#宇宙第一shell-fish" class="headerlink" title="宇宙第一shell  fish"></a>宇宙第一shell  fish</h3><p>fish是目前比较强大的shell，他的缺点是不兼容bash，但他提供了更简单易用的语法和更完善的功能。不用配置就比装了许多插件的zsh更好用。<br>同时他也有一些插件，也支持像bash那样的配置，配置文件在<code>~/.config/config.fish</code>。</p>
+<p><strong>不建议</strong>将fish设为默认shell，不然会很麻烦，在<code>~/.bashrc</code>里最后加一句<code>fish</code>就好。这样等你要用bash的时候直接<code>exit</code>就行了。</p>
+<p>fish配置可以参考<a href="https://www.jianshu.com/p/7ffd9d1af788" target="_blank" rel="noopener">这个博客</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/qjy981010" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Jiyang Qi<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+&lt;% if (page.mathjax){ %&gt;
+&lt;%- partial('mathjax') %&gt;
+&lt;% } %&gt;
+
+</body>
+
+</html>

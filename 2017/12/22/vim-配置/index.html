@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="boom boom boom">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Jiyang Qi">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="vim 常用技巧、配置、插件"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="boom boom boom" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Super Tensor"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>vim 常用技巧、配置、插件 - Super Tensor</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-111519148-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/ai.ico">
+    <link rel="shortcut icon" href="/img/ai.ico">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TensorLover's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/qjy981010">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>vim 常用技巧、配置、插件</h1>
+                    
+                    <h2 class="post-subheading">
+                        打造你的终极vim
+                    </h2>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Jiyang Qi on
+                        
+                        
+                            2017-12-22
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/配置/">#配置</a> <a href="/tags/技巧/">#技巧</a> <a href="/tags/vim/">#vim</a> <a href="/tags/插件/">#插件</a> <a href="/tags/vimrc/">#vimrc</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>作为命令行界面下的首要编辑器，vim虽然不如各大IDE强大，但要想优雅地使用Linux，必须先熟练的使用vim。他有以下几个优点：</p>
+<ul>
+<li>能方便的在命令行下编辑查看文件，易实现无鼠标操作，甚至不需要去按方向键就可以实现方便的光标移动，对于广大工作在一线的程序员，这无疑是提高生产效率的利器。不然，为什么各大IDE里都会有将自己<strong>vim化</strong>的的插件呢。</li>
+<li>定制性强；尽管在许多人眼里，vim和IDE根本不是同一个级别，但只要经过简单的配置，你一定会爱上这个小东西。他可以通过配置文件配置，还有众多开源插件，足以追上IDE甚至在某些方面超过他们。</li>
+</ul>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="以root权限写入"><a href="#以root权限写入" class="headerlink" title="以root权限写入"></a>以root权限写入</h3><p>你有没有遇到过这种情况：当你修改一个系统文件时，要保存时突然发现忘记加<code>sudo</code>命令了，自己没有<strong>写入权限</strong>。这时如果关掉文件再重新打开，前面写的东西岂不是都白写了？。不用担心，在命令模式下输入<code>:w !sudo tee %</code>，回车，<code>L</code>。或者更舒服一点<code>:w !sudo tee &gt; /dev/null %</code>，回车。</p>
+<p>其中<code>:w</code>把当前文件内容输入到标准输入，这时文件内容就在输入缓冲区中了。<code>！{cmd}</code>表示调用外部命令<code>{cmd}</code>，这里的外部命令就是<code>sudo tee %</code>了，<code>sudo</code>获取root权限，<code>tee</code>命令将输入缓冲区内容输入到文件<code>%</code>，vim里的<code>%</code>就代表当前文件名。</p>
+<p>于是你刚刚的修改就被巧妙的以root权限写下了。</p>
+<h3 id="EDITOR环境变量"><a href="#EDITOR环境变量" class="headerlink" title="EDITOR环境变量"></a>EDITOR环境变量</h3><p>有些时候，大家可能被迫用vi（一个老式编辑器，不好用）</p>
+<p>比如需要修改<code>/etc/sudoers</code>文件时，为了防止用户语法错误导致系统权限问题， 官方一般建议使用<strong>visudo</strong>这个命令，他默认使用vi作为编辑器。这时大家可以执行<code>export EDITOR=&quot;vim&quot;</code>来设置EDITOR这个环境变量，再执行visudo，发现编辑器已经变成了自己熟悉的vim！</p>
+<h3 id="实用vim命令"><a href="#实用vim命令" class="headerlink" title="实用vim命令"></a>实用vim命令</h3><ul>
+<li><code>vsp &lt;file&gt;</code>水平分屏并在新窗口打开<file>，对应的还有<code>sp &lt;file&gt;</code>垂直分屏  </file></li>
+<li><code>G</code>跳到文件结尾，<code>gg</code>跳到文件开头  </li>
+<li><code>j</code>、<code>k</code>、<code>h</code>、<code>l</code>方便的移动光标，妈妈再也不用担心我键盘上没有方向键啦～  </li>
+<li><code>/&lt;你要搜索的字符串&gt;</code>字符串搜索，相当于Ctrl-F  </li>
+<li><code>yy</code>复制当前行，<code>&lt;n&gt;yy</code>复制当前行及下面的<code>n-1</code>行</li>
+<li><code>dd</code>剪切当前行，<code>&lt;n&gt;dd</code>剪切当前行及下面的<code>n-1</code>行</li>
+<li><code>p</code>粘贴</li>
+</ul>
+<h3 id="chrome-Vimium插件"><a href="#chrome-Vimium插件" class="headerlink" title="chrome Vimium插件"></a>chrome Vimium插件</h3><p>无鼠标查网页，操作chrome，键盘党福利。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>vim的配置文件为<code>~/.vimrc</code><br>这里贴一些常用配置，更多可以参考<a href="https://github.com/qjy981010/vim-config/blob/master/.vimrc" target="_blank" rel="noopener">我的配置</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 常用快捷键 &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot; 双引号在vim配置文件中代表注释</span><br><span class="line">&quot; Ctrl+A 全选</span><br><span class="line">map &lt;C-A&gt; ggVG</span><br><span class="line"></span><br><span class="line">&quot; Ctrl+C 全局复制 （对archlinux系统不能复制到全局剪切板）</span><br><span class="line">vnoremap &lt;C-c&gt; &quot;+y</span><br><span class="line">&quot;archlinux参考http://blog.fooleap.org/using-vim-with-clipboard-on-archlinux.html</span><br><span class="line">&quot;不过archlinux官方源里现在已经没有ABS了</span><br><span class="line"></span><br><span class="line">&quot; Ctrl+v 粘贴</span><br><span class="line">map &lt;C-v&gt; &quot;+p</span><br><span class="line">imap &lt;C-v&gt; &lt;esc&gt;&quot;+pa</span><br><span class="line">vmap &lt;C-v&gt; d&quot;+p</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 代码必需 &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot; 语法高亮 </span><br><span class="line">syntax enable</span><br><span class="line">syntax on </span><br><span class="line"></span><br><span class="line">&quot;显示行号</span><br><span class="line">set number</span><br><span class="line"></span><br><span class="line">&quot; 当前行，行号高亮</span><br><span class="line">highlight clear LineNr</span><br><span class="line"></span><br><span class="line">&quot; 继承前一行的缩进方式，特别适用于多行注释 </span><br><span class="line">set autoindent </span><br><span class="line"></span><br><span class="line">&quot; 为C程序提供自动缩进 </span><br><span class="line">set smartindent </span><br><span class="line"></span><br><span class="line">&quot; 使用C样式的缩进 </span><br><span class="line">set cindent </span><br><span class="line"></span><br><span class="line">&quot; 制表符为4 </span><br><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">&quot; 统一缩进为4 </span><br><span class="line">set softtabstop=4 </span><br><span class="line">set shiftwidth=4 </span><br><span class="line"></span><br><span class="line">&quot; python 用空格代替制表符 </span><br><span class="line">autocmd FileType python set expandtab </span><br><span class="line"></span><br><span class="line">&quot;突出当前行</span><br><span class="line">set cursorline</span><br><span class="line">hi CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE</span><br><span class="line"></span><br><span class="line">&quot;智能补全</span><br><span class="line">set completeopt=longest,menu</span><br><span class="line"></span><br><span class="line">&quot;括号补全</span><br><span class="line">:inoremap ( ()&lt;ESC&gt;i</span><br><span class="line">:inoremap &#123; &#123;&#125;&lt;ESC&gt;i</span><br><span class="line">:inoremap [ []&lt;ESC&gt;i</span><br><span class="line">:inoremap &quot; &quot;&quot;&lt;ESC&gt;i</span><br><span class="line">:inoremap &apos; &apos;&apos;&lt;ESC&gt;i</span><br><span class="line">:inoremap ` ``&lt;ESC&gt;i</span><br><span class="line"></span><br><span class="line">&quot; 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位） </span><br><span class="line">set mouse=a </span><br><span class="line">set selection=exclusive </span><br><span class="line">set selectmode=mouse,key </span><br><span class="line"></span><br><span class="line">&quot; 高亮显示匹配的括号 </span><br><span class="line">set showmatch </span><br><span class="line"></span><br><span class="line">&quot; 匹配括号高亮的时间（单位是十分之一秒） </span><br><span class="line">set matchtime=0</span><br><span class="line"></span><br><span class="line">&quot; 在搜索的时候忽略大小写 </span><br><span class="line">set ignorecase </span><br><span class="line"></span><br><span class="line">&quot; 不要高亮被搜索的句子（phrases） </span><br><span class="line">set nohlsearch </span><br><span class="line"></span><br><span class="line">&quot; 光标移动到buffer的顶部和底部时保持3行距离 </span><br><span class="line">set scrolloff=3 </span><br><span class="line"></span><br><span class="line">&quot; 共享剪切板</span><br><span class="line">set clipboard+=unnamed</span><br><span class="line"></span><br><span class="line">&quot; 不为正在编辑的文件生成swap文件</span><br><span class="line">set noswapfile</span><br><span class="line"></span><br><span class="line">&quot; 设置当文件被改动时自动载入</span><br><span class="line">set autoread</span><br><span class="line"></span><br><span class="line">&quot; quickfix模式</span><br><span class="line">autocmd FileType c,cpp map &lt;buffer&gt; &lt;leader&gt;&lt;space&gt; :w&lt;cr&gt;:make&lt;cr&gt;</span><br><span class="line"></span><br><span class="line">&quot; 启动的时候不显示那个援助索马里儿童的提示 </span><br><span class="line">set shortmess=atI </span><br><span class="line"></span><br><span class="line">&quot; 不让vim发出讨厌的滴滴声 </span><br><span class="line">set noerrorbells</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 高能预警 &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 自动插入文件头 &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;新建.c,.h,.sh,.java文件，自动插入文件头 </span><br><span class="line">autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec &quot;:call SetTitle()&quot; </span><br><span class="line">&quot;&quot;定义函数SetTitle，自动插入文件头 </span><br><span class="line">func SetTitle() </span><br><span class="line">    &quot;如果文件类型为.sh文件 </span><br><span class="line">    if &amp;filetype == &apos;sh&apos; </span><br><span class="line">        call setline(1,&quot;\#!/bin/bash&quot;) </span><br><span class="line">        &quot; call append(line(&quot;.&quot;), &quot;&quot;) </span><br><span class="line">    elseif &amp;filetype == &apos;python&apos;</span><br><span class="line">        call setline(1,&quot;#!/usr/bin/env python&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;),&quot;# coding=utf-8&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;)+1, &quot;&quot;) </span><br><span class="line"></span><br><span class="line">    elseif &amp;filetype == &apos;ruby&apos;</span><br><span class="line">        call setline(1,&quot;#!/usr/bin/env ruby&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;),&quot;# encoding: utf-8&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;)+1, &quot;&quot;)</span><br><span class="line"></span><br><span class="line">&quot;    elseif &amp;filetype == &apos;mkd&apos;</span><br><span class="line">&quot;        call setline(1,&quot;&lt;head&gt;&lt;meta charset=\&quot;UTF-8\&quot;&gt;&lt;/head&gt;&quot;)</span><br><span class="line">    </span><br><span class="line">    endif</span><br><span class="line">    if expand(&quot;%:e&quot;) == &apos;cpp&apos;</span><br><span class="line">        call setline(1, &quot;#include&lt;iostream&gt;&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;), &quot;&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;)+1, &quot;using namespace std;&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;)+2, &quot;&quot;)</span><br><span class="line">    endif</span><br><span class="line">    if &amp;filetype == &apos;c&apos;</span><br><span class="line">        call setline(1, &quot;#include&lt;stdio.h&gt;&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;), &quot;&quot;)</span><br><span class="line">    endif</span><br><span class="line">    if expand(&quot;%:e&quot;) == &apos;h&apos;</span><br><span class="line">        call setline(1, &quot;#ifndef &quot;.toupper(expand(&quot;%:r&quot;)).&quot;_H_&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;), &quot;#define &quot;.toupper(expand(&quot;%:r&quot;)).&quot;_H_&quot;)</span><br><span class="line">        call append(line(&quot;.&quot;)+1, &quot;#endif&quot;)</span><br><span class="line">    endif</span><br><span class="line">    if &amp;filetype == &apos;java&apos;</span><br><span class="line">        call setline(1,&quot;public class &quot;.expand(&quot;%:r&quot;))</span><br><span class="line">        call append(line(&quot;.&quot;),&quot;&quot;)</span><br><span class="line">    endif</span><br><span class="line">    &quot;新建文件后，自动定位到文件末尾</span><br><span class="line">endfunc </span><br><span class="line">autocmd BufNewFile * normal G</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 快捷编译运行 &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot; from https://github.com/ma6174/vim </span><br><span class="line">&quot; 按F5编译运行</span><br><span class="line">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt;</span><br><span class="line">func! CompileRunGcc()</span><br><span class="line">    exec &quot;w&quot;</span><br><span class="line">    if &amp;filetype == &apos;c&apos;</span><br><span class="line">        exec &quot;!g++ % -o %&lt;&quot;</span><br><span class="line">        exec &quot;!time ./%&lt;&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;cpp&apos;</span><br><span class="line">        exec &quot;!g++ % -std=c++11 -o %&lt;&quot;</span><br><span class="line">        exec &quot;!time ./%&lt;&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;java&apos; </span><br><span class="line">        exec &quot;!javac %&quot; </span><br><span class="line">        exec &quot;!time java %&lt;&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;sh&apos;</span><br><span class="line">        :!time bash %</span><br><span class="line">    elseif &amp;filetype == &apos;python&apos;</span><br><span class="line">        exec &quot;!time python %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;html&apos;</span><br><span class="line">        exec &quot;!firefox % &amp;&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;go&apos;</span><br><span class="line">&quot;        exec &quot;!go build %&lt;&quot;</span><br><span class="line">        exec &quot;!time go run %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;mkd&apos;</span><br><span class="line">        exec &quot;!~/.vim/markdown.pl % &gt; %.html &amp;&quot;</span><br><span class="line">        exec &quot;!firefox %.html &amp;&quot;</span><br><span class="line">    endif</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line">&quot;C,C++的调试</span><br><span class="line">map &lt;F8&gt; :call Rungdb()&lt;CR&gt;</span><br><span class="line">func! Rungdb()</span><br><span class="line">    exec &quot;w&quot;</span><br><span class="line">    exec &quot;!g++ % -g -o %&lt;&quot;</span><br><span class="line">    exec &quot;!gdb ./%&lt;&quot;</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line">&quot;代码格式优化化</span><br><span class="line">map &lt;F6&gt; :call FormartSrc()&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">&quot;定义FormartSrc()</span><br><span class="line">func FormartSrc()</span><br><span class="line">    exec &quot;w&quot;</span><br><span class="line">    if &amp;filetype == &apos;c&apos;</span><br><span class="line">        exec &quot;!astyle --style=ansi -a --suffix=none %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;cpp&apos; || &amp;filetype == &apos;hpp&apos;</span><br><span class="line">        exec &quot;r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %&gt; /dev/null 2&gt;&amp;1&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;perl&apos;</span><br><span class="line">        exec &quot;!astyle --style=gnu --suffix=none %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;py&apos;||&amp;filetype == &apos;python&apos;</span><br><span class="line">        exec &quot;r !autopep8 -i --aggressive %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;java&apos;</span><br><span class="line">        exec &quot;!astyle --style=java --suffix=none %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;jsp&apos;</span><br><span class="line">        exec &quot;!astyle --style=gnu --suffix=none %&quot;</span><br><span class="line">    elseif &amp;filetype == &apos;xml&apos;</span><br><span class="line">        exec &quot;!astyle --style=gnu --suffix=none %&quot;</span><br><span class="line">    else</span><br><span class="line">        exec &quot;normal gg=G&quot;</span><br><span class="line">        return</span><br><span class="line">    endif</span><br><span class="line">    exec &quot;e! %&quot;</span><br><span class="line">endfunc</span><br><span class="line">&quot;结束定义FormartSrc</span><br></pre></td></tr></table></figure></p>
+<p>想速成的选手可以尝试一下这个<a href="https://github.com/amix/vimrc" target="_blank" rel="noopener">github上开源的比较完善的配置</a>，但是毕竟是别人的配置，关键是要明白每个配置的效果，不然，可能就算有这个配置，大家也不会用这些功能。所以建议大家可以多尝试一下，尽量自己探索，<strong>适合你的配置才是最好的配置</strong>。</p>
+<h2 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h2><p>以下插件应该均可通过Linux各发行版的包管理工具下载，也可以通过Vundle安装</p>
+<ul>
+<li><a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="noopener">Vundle</a>：插件安装利器</li>
+<li><a href="https://github.com/Valloric/YouCompleteMe" target="_blank" rel="noopener">YouCompleteMe</a>智能补全及错误提示，想配置好略麻烦，但是好用</li>
+<li><a href="https://github.com/vim-syntastic/syntastic" target="_blank" rel="noopener">syntastic</a>：语法检查</li>
+<li><a href="https://github.com/Lokaltog/vim-powerline" target="_blank" rel="noopener">Powerline</a> / <a href="https://github.com/vim-airline/vim-airline" target="_blank" rel="noopener">Airline</a>：美化工具，养眼</li>
+<li><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NerdTree</a>：文件管理，多文件切换</li>
+<li><a href="https://github.com/SirVer/ultisnips" target="_blank" rel="noopener">UltiSnips</a>：代码块补全，码农必备、、</li>
+</ul>
+<p><strong>友情提示</strong>：插件不易装太多，不然你的vim，启动会变慢，导致体验 - -</p>
+<p><strong>最后，大家就可以愉快而优雅的使用vim了</strong></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/qjy981010" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Jiyang Qi<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+&lt;% if (page.mathjax){ %&gt;
+&lt;%- partial('mathjax') %&gt;
+&lt;% } %&gt;
+
+</body>
+
+</html>
