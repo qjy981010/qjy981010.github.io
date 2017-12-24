@@ -213,7 +213,7 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><br></script><br>在机器学习中，优化算法即优化模型并使损失尽量减小的算法，我们常用的比如梯度下降就属于优化算法。而从梯度下降法延伸出来的一些优化算法，在应用中遇到的一个问题就是学习速率的选择。</p>
+                <p>在机器学习中，优化算法即优化模型并使损失尽量减小的算法，我们常用的比如梯度下降就属于优化算法。而从梯度下降法延伸出来的一些优化算法，在应用中遇到的一个问题就是学习速率的选择。</p>
 <ul>
 <li>学习速率选的小，收敛就慢</li>
 <li>学习速率选的大，训练效果不好</li>
@@ -226,7 +226,24 @@
 <li>RMSprop</li>
 <li>Adam</li>
 </ul>
-<h1 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h1><p>我们记目标函数的梯度为$$g_{t,i}=$$</p>
+<h1 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h1><p>我们记目标函数的梯度为$g<em>{t, i} = \nabla</em>\theta J( \theta<em>i )$，普通梯度下降的更新规则为：<br>$$\theta</em>{t+1, i} = \theta<em>{t, i} - \eta \cdot g</em>{t, i}$$<br>为了达到随训练的进行，逐渐减小学习速率的目的，adagrad根据之前每次计算的梯度，来对学习速率η进行修正：<br>$$\theta<em>{t+1, i} = \theta</em>{t, i} - \dfrac{\eta}{\sqrt{G<em>{t, ii} + \epsilon}} \cdot g</em>{t, i}$$<br>其中：</p>
+<ul>
+<li>G为对角矩阵，对角线上的第i行第i列元素为，直到t时刻（第t次迭代）为止，所有对于$\theta_i$的梯度的平方和</li>
+<li>ϵ为平滑项，用于防止除数为0，通常设置为1e-8</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>不需要手动调节每次的学习速率</li>
+<li>比较适合处理稀疏数据，因为低频出现的参数梯度和较小，相应的更新速率更大</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>仍依赖于人工设置一个全局学习速率</li>
+<li>训练的中后期，分母上梯度的平方和累加越来越大，使学习速率趋近于0</li>
+</ul>
+<h1 id="AdaDelta"><a href="#AdaDelta" class="headerlink" title="AdaDelta"></a>AdaDelta</h1><p>adadelta为对adagrad的优化</p>
+<h4 id="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"><a href="#优化一：滑动窗口（解决adagrad梯度持续下降的问题）" class="headerlink" title="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"></a>优化一：滑动窗口（解决adagrad梯度持续下降的问题）</h4><p>将adagrad中的全部梯度累积和，改为之前一定时间区间内梯度值的累加和。为了简化运算，adadelta中使用如下递推算法，来近似计算之前一段区间内的梯度平均值：<br>$$E[g^2]<em>t = \gamma E[g^2]</em>{t-1} + (1 - \gamma) g^2_t$$<br>此式的形式类似于动量法中动量的计算，其中$\gamma$可以理解为动量。于是得到：<br>$$\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]<em>t + \epsilon}} g</em>{t}$$<br>简化表示为：<br>$$\Delta \theta<em>t = - \dfrac{\eta}{RMS[g]</em>{t}} g_t$$<br>其中RMS为方均根（root mean squared）</p>
+<h4 id="优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题"><a href="#优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题" class="headerlink" title="优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)"></a>优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)</h4><p>假设θ有自己的一个数量级,必须保证Δθ与θ数量级相同.（可以理解为，运算必须保证单位相同）。下面我们获取θ的数量级，用与求$g_t$方均根同样的方法近似求Δθ方均根:<br>$$E[\Delta \theta^2]<em>t = \gamma E[\Delta \theta^2]</em>{t-1} + (1 - \gamma) \Delta \theta^2_t$$<br>代替η最终得到:<br>$$\Delta \theta<em>t = - \dfrac{RMS[\Delta \theta]</em>{t-1}}{RMS[g]<em>{t}} g</em>{t}$$</p>
 
 
                 
@@ -296,9 +313,26 @@
 
 <!-- Disqus Comments -->
 
-&lt;% if (page.mathjax){ %&gt;
-&lt;%- partial('mathjax') %&gt;
-&lt;% } %&gt;
+;
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    }); 
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>;
+;
+
 
 </body>
 
