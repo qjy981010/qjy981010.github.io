@@ -213,20 +213,20 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>在机器学习中，优化算法即优化模型并使损失尽量减小的算法，我们常用的比如梯度下降就属于优化算法。而从梯度下降法延伸出来的一些优化算法，在应用中遇到的一个问题就是学习速率的选择。</p>
+                <p>在机器学习中，优化算法即优化模型并使损失尽量减小的算法，我们常用的比如梯度下降，牛顿法就属于优化算法。而从梯度下降法延伸出来的一些优化算法，在应用中遇到的一个问题就是全局学习速率的选择。</p>
 <ul>
 <li>学习速率选的小，收敛就慢</li>
 <li>学习速率选的大，训练效果不好</li>
 </ul>
-<p>而且一般情况下，我们希望学习速率在开始时比较大，之后随着训练的进行，学习速率能适当调整。于是自适应优化算法就出现了。</p>
+<p>这是因为对此类算法很难找到一个对每一次迭代都合适的全局学习速率，而一般情况下，我们希望学习速率在开始时比较大，之后随着训练的进行，学习速率能适当调整。于是自适应优化算法就出现了。</p>
 <p>本文将介绍一下四种自适应优化算法:</p>
 <ul>
-<li>Adagrad</li>
-<li>AdaDelta</li>
-<li>RMSprop</li>
-<li>Adam</li>
+<li><strong>Adagrad</strong></li>
+<li><strong>AdaDelta</strong></li>
+<li><strong>RMSprop</strong></li>
+<li><strong>Adam</strong></li>
 </ul>
-<h1 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h1><p>我们记目标函数的梯度为$g<em>{t, i} = \nabla</em>\theta J( \theta<em>i )$，普通梯度下降的更新规则为：<br>$$\theta</em>{t+1, i} = \theta<em>{t, i} - \eta \cdot g</em>{t, i}$$<br>为了达到随训练的进行，逐渐减小学习速率的目的，adagrad根据之前每次计算的梯度，来对学习速率η进行修正：<br>$$\theta<em>{t+1, i} = \theta</em>{t, i} - \dfrac{\eta}{\sqrt{G<em>{t, ii} + \epsilon}} \cdot g</em>{t, i}$$<br>其中：</p>
+<h1 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h1><p>我们记目标函数的梯度为$g_{t,i}=\nabla_\theta J( \theta_i )$，普通梯度下降的更新规则为：<br>$$\theta_{t+1, i} = \theta_{t, i} - \eta \cdot g_{t, i}$$<br>为了达到随训练的进行，逐渐减小学习速率的目的，adagrad根据之前每次计算的梯度，来对学习速率η进行修正：<br>$$\theta_{t+1, i} = \theta_{t, i} - \dfrac{\eta}{\sqrt{G_{t, ii} + \epsilon}} \cdot g_{t, i}$$<br>其中：</p>
 <ul>
 <li>G为对角矩阵，对角线上的第i行第i列元素为，直到t时刻（第t次迭代）为止，所有对于$\theta_i$的梯度的平方和</li>
 <li>ϵ为平滑项，用于防止除数为0，通常设置为1e-8</li>
@@ -242,8 +242,45 @@
 <li>训练的中后期，分母上梯度的平方和累加越来越大，使学习速率趋近于0</li>
 </ul>
 <h1 id="AdaDelta"><a href="#AdaDelta" class="headerlink" title="AdaDelta"></a>AdaDelta</h1><p>adadelta为对adagrad的优化</p>
-<h4 id="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"><a href="#优化一：滑动窗口（解决adagrad梯度持续下降的问题）" class="headerlink" title="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"></a>优化一：滑动窗口（解决adagrad梯度持续下降的问题）</h4><p>将adagrad中的全部梯度累积和，改为之前一定时间区间内梯度值的累加和。为了简化运算，adadelta中使用如下递推算法，来近似计算之前一段区间内的梯度平均值：<br>$$E[g^2]<em>t = \gamma E[g^2]</em>{t-1} + (1 - \gamma) g^2_t$$<br>此式的形式类似于动量法中动量的计算，其中$\gamma$可以理解为动量。于是得到：<br>$$\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]<em>t + \epsilon}} g</em>{t}$$<br>简化表示为：<br>$$\Delta \theta<em>t = - \dfrac{\eta}{RMS[g]</em>{t}} g_t$$<br>其中RMS为方均根（root mean squared）</p>
-<h4 id="优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题"><a href="#优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题" class="headerlink" title="优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)"></a>优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)</h4><p>假设θ有自己的一个数量级,必须保证Δθ与θ数量级相同.（可以理解为，运算必须保证单位相同）。下面我们获取θ的数量级，用与求$g_t$方均根同样的方法近似求Δθ方均根:<br>$$E[\Delta \theta^2]<em>t = \gamma E[\Delta \theta^2]</em>{t-1} + (1 - \gamma) \Delta \theta^2_t$$<br>代替η最终得到:<br>$$\Delta \theta<em>t = - \dfrac{RMS[\Delta \theta]</em>{t-1}}{RMS[g]<em>{t}} g</em>{t}$$</p>
+<h4 id="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"><a href="#优化一：滑动窗口（解决adagrad梯度持续下降的问题）" class="headerlink" title="优化一：滑动窗口（解决adagrad梯度持续下降的问题）"></a>优化一：滑动窗口（解决adagrad梯度持续下降的问题）</h4><p>将adagrad中的全部梯度累积和，改为之前一定时间区间内梯度值的累加和。为了简化运算，adadelta中使用如下递推算法，来近似计算之前一段区间内的梯度平均值：<br>$$E[g^2]_t = \gamma E[g^2]_{t-1} + (1 - \gamma) g^2_t$$<br>此式的形式类似于动量法中动量的计算，其中$\gamma$可以理解为动量。于是得到：<br>$$\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_{t}$$<br>简化表示为：<br>$$\Delta \theta_t = - \dfrac{\eta}{RMS[g]_{t}} g_t$$<br>其中RMS为方均根（root mean squared）</p>
+<h4 id="优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题"><a href="#优化二：保证Δθ与θ数量级一致-解决adagrad手动设置学习速率的问题" class="headerlink" title="优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)"></a>优化二：保证Δθ与θ数量级一致(解决adagrad手动设置学习速率的问题)</h4><p>假设θ有自己的一个数量级,必须保证Δθ与θ数量级相同.（可以理解为，运算必须保证单位相同）。下面我们获取θ的数量级，用与求$g_t$方均根同样的方法近似求Δθ方均根:<br>$$E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t$$<br>代替η最终得到:<br>$$\Delta \theta_t = - \dfrac{RMS[\Delta \theta]_{t-1}}{RMS[g]_{t}} g_{t}$$</p>
+<h1 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h1><p>RMSprop也是对adagrad的优化，与adadelta同期出现，由Hinton提出。</p>
+<p>RMSprop其实基本上就是adadelta中优化一的结果：<br>$$\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_{t}$$<br>它与adadelta算法的主要区别在于：</p>
+<ul>
+<li>adadelta中试图保证Δθ与θ数量级一致</li>
+<li>而RMSprop中的思想是，主要使用梯度的符号，而几乎抛弃梯度的大小</li>
+</ul>
+<p>因为，对于不同的θ,梯度大小不同,导致难以选取合适的全局学习速率，所以采用只保留符号的策略</p>
+<p>特点：</p>
+<ul>
+<li>依赖于全局学习速率</li>
+<li>因为其Δθ一般比其他算法要大，不易陷入局部最小，所以适合处理非平稳目标，对RNN效果较好</li>
+</ul>
+<h1 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h1><p>Adaptive Gradient Algorithm</p>
+<h4 id="优化一：用动量来优化RMSprop"><a href="#优化一：用动量来优化RMSprop" class="headerlink" title="优化一：用动量来优化RMSprop"></a>优化一：用动量来优化RMSprop</h4><p>首先把动量法公式搬过来：<br>$$m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t $$</p>
+<p>再把前面的方均值记为$v_t$：<br>$$v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 $$</p>
+<ul>
+<li>$m_t$为一阶矩，可以近似理解为最近一定时间内梯度的均值，其中$\beta_1$一般取0.9</li>
+<li>$v_t$为二阶矩，其中$\beta_2$一般取0.999</li>
+</ul>
+<p>用$m_t$代替RMSprop中的梯度，$v_t$代替方均值，于是得到了新的更新规则<br>$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{v_t} + \epsilon} m_t$$</p>
+<h4 id="优化二：矫正一阶矩与二阶矩"><a href="#优化二：矫正一阶矩与二阶矩" class="headerlink" title="优化二：矫正一阶矩与二阶矩"></a>优化二：矫正一阶矩与二阶矩</h4><p>这样优化一就完成了，但是有一个缺点，在优化的前期，$v_t$与$m_t$过小，学习效果不好，所以Adam就又采取了优化二的措施来解决这一问题。<br>$$\hat{m}_t = \dfrac{m_t}{1 - \beta^t_1}$$<br>$$\hat{v}_t = \dfrac{v_t}{1 - \beta^t_2}$$<br>刚开始时系数$\dfrac{1}{1 - \beta^t}$很大，随着训练的进行，t越来越大，系数越来越小趋近于1，从而达到了我们的目的。</p>
+<p>于是我们最终的更新规则为：<br>$$\theta<em>{t+1} = \theta</em>{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$$<br>Adam与其他自适应算法相比，表现较为出色，更有优势。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h4 id="第一张图"><a href="#第一张图" class="headerlink" title="第一张图"></a>第一张图</h4><p><img src="&#39;/images/contours_evaluation_optimizers.gif&#39;" alt=""><br><a href="http://ruder.io/optimizing-gradient-descent/" target="_blank" rel="noopener">图片来源（下图同）</a><br>从图中我们可以看到：</p>
+<ul>
+<li>SGD（随机梯度下降）学习较慢，非常需要手动调节合适的学习速率来保证其高效性</li>
+<li>动量法及其改良版NAG，十分符合动量的特点，其学习路线就像小球从坡上滚下来</li>
+<li>其他三个自适应算法表现都不错</li>
+<li>仔细看RMSprop最后有一个较大的波动，符合其特点</li>
+</ul>
+<h4 id="第二张图"><a href="#第二张图" class="headerlink" title="第二张图"></a>第二张图</h4><p><img src="&#39;/images/saddle_point_evaluation_optimizers.gif&#39;" alt=""><br>此图展示了各优化算法在鞍点处的表现。</p>
+<ul>
+<li>SGD（随机梯度下降）无法挣脱鞍点</li>
+<li>动量法及其改良版NAG挣扎了好久才摆脱鞍点</li>
+<li>adagrad明显展现出其缺点，虽然后面梯度很大，但学习中后期其学习速率变得很小，导致学习很慢</li>
+<li>RMSprop重视梯度的符号，轻视梯度的值，所以梯度大时，其步子不是很大</li>
+<li>Adadelta表现比较好，能快速摆脱鞍点并且学习很快</li>
+</ul>
 
 
                 
