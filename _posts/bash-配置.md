@@ -154,7 +154,7 @@ export TERM="screen-256color"
 zsh是一个兼容bash，可扩展的shell，相当于一个给你配置好的bash。他还有很多插件，这里就不一一介绍了。推荐Oh-My-Zsh。
 ### 宇宙第一shell  fish
 fish是目前比较强大的shell，他的缺点是不兼容bash，但他提供了更简单易用的语法和更完善的功能。不用配置就比装了许多插件的zsh更好用。  
-同时他也有一些插件，也支持像bash那样的配置，配置文件在`~/.config/config.fish`。
+同时他也有一些插件，也支持像bash那样的配置，配置文件在`~/.config/fish/config.fish`。
 
 **不建议**将fish设为默认shell，不然会很麻烦，在`~/.bashrc`里最后加一句`fish`就好。这样等你要用bash的时候直接`exit`就行了。
 
