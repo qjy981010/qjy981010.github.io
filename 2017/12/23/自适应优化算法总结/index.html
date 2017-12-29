@@ -266,14 +266,14 @@
 <p>用$m_t$代替RMSprop中的梯度，$v_t$代替方均值，于是得到了新的更新规则<br>$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{v_t} + \epsilon} m_t$$</p>
 <h4 id="优化二：矫正一阶矩与二阶矩"><a href="#优化二：矫正一阶矩与二阶矩" class="headerlink" title="优化二：矫正一阶矩与二阶矩"></a>优化二：矫正一阶矩与二阶矩</h4><p>这样优化一就完成了，但是有一个缺点，在优化的前期，$v_t$与$m_t$过小，学习效果不好，所以Adam就又采取了优化二的措施来解决这一问题。<br>$$\hat{m}_t = \dfrac{m_t}{1 - \beta^t_1}$$<br>$$\hat{v}_t = \dfrac{v_t}{1 - \beta^t_2}$$<br>刚开始时系数$\dfrac{1}{1 - \beta^t}$很大，随着训练的进行，t越来越大，系数越来越小趋近于1，从而达到了我们的目的。</p>
 <p>于是我们最终的更新规则为：<br>$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$$<br>Adam与其他自适应算法相比，表现较为出色，更有优势。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h4 id="第一张图"><a href="#第一张图" class="headerlink" title="第一张图"></a>第一张图</h4><p><img src="&#39;/images/contours_evaluation_optimizers.gif&#39;" alt=""><br><a href="http://ruder.io/optimizing-gradient-descent/" target="_blank" rel="noopener">图片来源（下图同）</a><br>从图中我们可以看到：</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h4 id="第一张图"><a href="#第一张图" class="headerlink" title="第一张图"></a>第一张图</h4><p><img src="/images/contours_evaluation_optimizers.gif" alt=""><br><a href="http://ruder.io/optimizing-gradient-descent/" target="_blank" rel="noopener">图片来源（下图同）</a><br>从图中我们可以看到：</p>
 <ul>
 <li>SGD（随机梯度下降）学习较慢，非常需要手动调节合适的学习速率来保证其高效性</li>
 <li>动量法及其改良版NAG，十分符合动量的特点，其学习路线就像小球从坡上滚下来</li>
 <li>其他三个自适应算法表现都不错</li>
 <li>仔细看RMSprop最后有一个较大的波动，符合其特点</li>
 </ul>
-<h4 id="第二张图"><a href="#第二张图" class="headerlink" title="第二张图"></a>第二张图</h4><p><img src="&#39;/images/saddle_point_evaluation_optimizers.gif&#39;" alt=""><br>此图展示了各优化算法在鞍点处的表现。</p>
+<h4 id="第二张图"><a href="#第二张图" class="headerlink" title="第二张图"></a>第二张图</h4><p><img src="/images/saddle_point_evaluation_optimizers.gif" alt=""><br>此图展示了各优化算法在鞍点处的表现。</p>
 <ul>
 <li>SGD（随机梯度下降）无法挣脱鞍点</li>
 <li>动量法及其改良版NAG挣扎了好久才摆脱鞍点</li>
@@ -367,8 +367,9 @@
         }
     });
 </script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>;
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+;
 ;
 
 
