@@ -98,27 +98,27 @@ figure.highlight table {
   border-spacing: 0;
   border: 0px;
 }
-figure.highlight table th {
+border-top 0px border-bottom 0px th {
   border: 0px solid #000;
 }
-figure.highlight table td {
+border-top 0px border-bottom 0px td {
   border: 0px solid #000;
 }
-figure.highlight table .gutter {
+border-top 0px border-bottom 0px .gutter {
   color: color-meta;
   padding-right: 15px;
   border-right: 1px solid color-border;
   text-align: right;
 }
-figure.highlight table .code {
+border-top 0px border-bottom 0px .code {
   padding-left: 15px;
   border-left: 1px solid #fff;
   color: #666;
 }
-figure.highlight table .line {
+border-top 0px border-bottom 0px .line {
   height: 20px;
 }
-figure.highlight table .line.marked {
+border-top 0px border-bottom 0px .line.marked {
   background: #d6d6d6;
 }
 pre .comment,
