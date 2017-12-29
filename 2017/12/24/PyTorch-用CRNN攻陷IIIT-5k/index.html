@@ -229,7 +229,108 @@
 <p>对于输入的图片，图片首先通过CNN网络，得到特征图。之后，如何将这个特征图送入RNN呢？CRNN将特征图的每一列像素作为一个特征向量，所有列组成一个特征序列，这一序列将作为RNN的输入，即RNN第i个特征向量为特征图第i列，如下图所示。<br><img src="/images/receptive_field.png" alt=""><br>图中 Feature Sequence 就是特征序列， Receptive Field 就代表原输入图像中的一列（感受野），他们一一对应，且相对位置不变。即原图像上从左到右的每一列，映射到特征序列上，依然保持原来从左到右的顺序。因此特征序列就可以认为是原图像的一种表示。</p>
 <p>也正因为这样一种机制，图片的宽度不一定相同，但高度必须相同。为了方便，我们可以调整输入的图片的高度为32，来保证卷积后得到的特征图的每一列都只有一个像素。</p>
 <p>CRNN具体的网络结构如下：</p>
-<p>注意：为了与论文保持一致，本文的宽高结构均用<strong>宽 × 高</strong>来表示，三维张量格式为<strong>宽 × 高 × 通道数</strong><br><em>其中k表示卷积核大小(kernel_size)，s表示步长(stride)，p表示填充(padding_size)</em><br>| Type | Configurations | Output Size |<br>| :—: | :—: | :—: |<br>| Input | W × 32 gray-scale image | W × 32 × 1 |<br>| Convolution | #maps:64, k:3 × 3, s:1, p:1 | W × 32 × 64 |<br>| MaxPooling | Window:2 × 2, s:2 | W/2 × 16 × 64 |<br>| Convolution | #maps:128, k:3 × 3, s:1, p:1 | W/2 × 16 × 128 |<br>| MaxPooling | Window:2 × 2, s:2 | W/4 × 8 × 128 |<br>| Convolution | #maps:256, k:3 × 3, s:1, p:1 | W/4 × 8 × 256 |<br>| Convolution | #maps:256, k:3 × 3, s:1, p:1 | W/4 × 8 × 256 |<br>| MaxPooling | Window:1 × 2, s:2 | W/4 × 4 × 256 |<br>| Convolution | #maps:512, k:3 × 3, s:1, p:1 | W/4 × 4 × 512 |<br>| BatchNormalization | - | W/4 × 4 × 512 |<br>| Convolution | #maps:512, k:3 × 3, s:1, p:1 | W/4 × 4 × 512 |<br>| BatchNormalization | - | W/4 × 4 × 512 |<br>| MaxPooling | Window:1 × 2, s:2 | W/4 × 2 × 512 |<br>| Convolution | #maps:512, k:2 × 2, s:1, p:0 | W/4-1 × 1 × 512 |<br>| Map-to-Sequence | - | W/4-1 × 512 |<br>| Bidirectional-LSTM | #hidden units:256 | W/4-1 × 256 |<br>| Bidirectional-LSTM | #hidden units:256 | W/4-1 × label_num |<br>| Transcription | - | str |</p>
+<p>注意：为了与论文保持一致，本文的宽高结构均用<strong>宽 × 高</strong>来表示，三维张量格式为<strong>宽 × 高 × 通道数</strong><br><em>其中k表示卷积核大小(kernel_size)，s表示步长(stride)，p表示填充(padding_size)</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Configurations</th>
+<th style="text-align:center">Output Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Input</td>
+<td style="text-align:center">W × 32 gray-scale image</td>
+<td style="text-align:center">W × 32 × 1</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:64, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W × 32 × 64</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxPooling</td>
+<td style="text-align:center">Window:2 × 2, s:2</td>
+<td style="text-align:center">W/2 × 16 × 64</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:128, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W/2 × 16 × 128</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxPooling</td>
+<td style="text-align:center">Window:2 × 2, s:2</td>
+<td style="text-align:center">W/4 × 8 × 128</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:256, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W/4 × 8 × 256</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:256, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W/4 × 8 × 256</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxPooling</td>
+<td style="text-align:center">Window:1 × 2, s:2</td>
+<td style="text-align:center">W/4 × 4 × 256</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:512, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W/4 × 4 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">BatchNormalization</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">W/4 × 4 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:512, k:3 × 3, s:1, p:1</td>
+<td style="text-align:center">W/4 × 4 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">BatchNormalization</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">W/4 × 4 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">MaxPooling</td>
+<td style="text-align:center">Window:1 × 2, s:2</td>
+<td style="text-align:center">W/4 × 2 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">#maps:512, k:2 × 2, s:1, p:0</td>
+<td style="text-align:center">W/4-1 × 1 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Map-to-Sequence</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">W/4-1 × 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Bidirectional-LSTM</td>
+<td style="text-align:center">#hidden units:256</td>
+<td style="text-align:center">W/4-1 × 256</td>
+</tr>
+<tr>
+<td style="text-align:center">Bidirectional-LSTM</td>
+<td style="text-align:center">#hidden units:256</td>
+<td style="text-align:center">W/4-1 × label_num</td>
+</tr>
+<tr>
+<td style="text-align:center">Transcription</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">str</td>
+</tr>
+</tbody>
+</table>
 <p>下面我们把每个步骤分开来看</p>
 <h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>从上表的配置可以看出，卷积层很像VGG-11。不同的地方主要有两个：</p>
 <ol>
