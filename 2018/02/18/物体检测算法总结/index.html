@@ -218,8 +218,9 @@
 <ol>
 <li>首先通过不同大小，不同长宽比的窗口在图片上滑动。</li>
 <li>再将每个窗口的图像输入到分类器中，得到概率。</li>
-<li>最后根据概率判断此框内是否有物体，有什么物体。<br>但是这时间复杂度显然是难以接受的，因此就有了后面的种种算法，让目标检测也能更加优雅。</li>
+<li>最后根据概率判断此框内是否有物体，有什么物体。</li>
 </ol>
+<p>但是这时间复杂度显然是难以接受的，因此就有了后面的种种算法，让目标检测也能更加优雅。</p>
 <h1 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h1><p>RCNN是第一个将深度学习引入物体检测并取得突出成绩的算法，它用CNN替代传统机器学习算法。<a href="https://arxiv.org/pdf/1311.2524.pdf" target="_blank" rel="noopener">论文PDF在这里</a></p>
 <h4 id="RCNN主要步骤如下："><a href="#RCNN主要步骤如下：" class="headerlink" title="RCNN主要步骤如下："></a>RCNN主要步骤如下：</h4><ol>
 <li>通过 selective search 算法，在整张图片上获得2000个 region proposal（候选框）。</li>
@@ -250,12 +251,12 @@
 <li>训练中，由于图片特征量巨大，必须通过硬盘暂时存储，占用磁盘空间大且速度慢。</li>
 <li>模型复杂，分为三步，难以训练。</li>
 </ol>
-<h1 id="SPP-Net"><a href="#SPP-Net" class="headerlink" title="SPP-Net"></a>SPP-Net</h1><p>SPP-Net在RCNN的基础上，大大提升了检测速度。<a href="https://arxiv.org/pdf/1406.4729.pdf" target="_blank" rel="noopener">论文PDF在这里</a></p>
+<h1 id="SPP-Net"><a href="#SPP-Net" class="headerlink" title="SPP-Net"></a>SPP-Net</h1><p>SPP-Net在RCNN的基础上，大大提升了检测速度。<a href="https://arxiv.org/pdf/1406.4729.pdf" target="_blank" rel="noopener">论文PDF</a></p>
 <p>首先如前面所述，CNN要求输入的图片<strong>大小固定</strong>。图片输入卷积层后，经过多次卷积池化，得到一定大小的特征图；之后需要将特征图展开到一维并输入全连接层。卷积层本身并不要求输入图片的大小固定，但展开后得到的一维向量的长度必须固定，否则无法输入全连接层。这就意味着输入的图片大小也必须固定，于是2000个候选框必须缩放到固定大小才能输入，这就造成了RCNN的低效。</p>
 <p>SPP-Net为了解决这个问题，采用了<strong>金字塔池化</strong>。将最后一个卷积层输出的特征图，分别用 4 x 4, 2 x 2, 1 x 1 的网格分为16、4、1个块，在每个块中取最大值或平均值，从而得到16+4+1个特征值组成的特征向量。用它来输入全连接层，这样，输入图片大小就不必固定了。我们就可以不单独对每个候选框进行计算，而是将整个图片输入，然后依据原图与特征图的对应关系，取出每个候选框对应的特征，通过金字塔池化与全连接层后再输入给SVM进行分类。</p>
 <p><img src="/images/spp_net.png" alt=""></p>
 <p>SPP-Net的优势是十分明显的，对每张图片，RCNN的CNN网络需要进行2000次运算，而SPP-Net只需要1次。准确率上两者较为接近，SPP-Net略有提高。</p>
-<h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><p>Fast-RCNN在SPP-Net的基础上，将提取特征、分类器分类、位置调整这3步统一用神经网络来完成。<a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf" target="_blank" rel="noopener">论文PDF在这里</a></p>
+<h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><p>Fast-RCNN在SPP-Net的基础上，将提取特征、分类器分类、位置调整这3步统一用神经网络来完成。<a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf" target="_blank" rel="noopener">论文PDF</a></p>
 <h4 id="Fast-RCNN主要步骤："><a href="#Fast-RCNN主要步骤：" class="headerlink" title="Fast-RCNN主要步骤："></a>Fast-RCNN主要步骤：</h4><ol>
 <li>通过 selective search 算法，在整张图片上获得2000个 region proposal（候选框）。</li>
 <li>将图片通过网络，得到物体分类结果以及边框位置调整的回归结果。</li>
