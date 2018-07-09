@@ -227,8 +227,28 @@
 <p>$$x’ = \frac{x-min}{max-min}$$</p>
 <h4 id="标准化-Standardization"><a href="#标准化-Standardization" class="headerlink" title="标准化(Standardization)"></a>标准化(Standardization)</h4><p>使数据均值为0，标准差为1</p>
 <p>$$x’ = \frac{x-\mu}{\sigma}$$</p>
-<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><div align="center"><br>|  | 预测为真 | 预测为假 |<br>| — | — | — |<br>| 实际为真 | TP(真正例) | FN(假反例) |<br>| 实际为假 | FP(假正例) | TN(真反例) |<br></div>
-
+<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><p>首先定义基本的评价标准</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>预测为真</th>
+<th>预测为假</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实际为真</td>
+<td>TP(真正例)</td>
+<td>FN(假反例)</td>
+</tr>
+<tr>
+<td>实际为假</td>
+<td>FP(假正例)</td>
+<td>TN(真反例)</td>
+</tr>
+</tbody>
+</table>
 <h4 id="精确率-查准率-precision"><a href="#精确率-查准率-precision" class="headerlink" title="精确率/查准率(precision)"></a>精确率/查准率(precision)</h4><p>$$P = \frac{TP}{TP+FP}$$</p>
 <h4 id="召回率-查全率-recall"><a href="#召回率-查全率-recall" class="headerlink" title="召回率/查全率(recall)"></a>召回率/查全率(recall)</h4><p>$$R = \frac{TP}{TP+FN}$$</p>
 <h4 id="准确率-accuracy"><a href="#准确率-accuracy" class="headerlink" title="准确率(accuracy)"></a>准确率(accuracy)</h4><p>$$Acc = \frac{TP+TN}{TP+FP+TN+FN}$$</p>
