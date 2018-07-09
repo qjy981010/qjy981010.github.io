@@ -227,27 +227,8 @@
 <p>$$x’ = \frac{x-min}{max-min}$$</p>
 <h4 id="标准化-Standardization"><a href="#标准化-Standardization" class="headerlink" title="标准化(Standardization)"></a>标准化(Standardization)</h4><p>使数据均值为0，标准差为1</p>
 <p>$$x’ = \frac{x-\mu}{\sigma}$$</p>
-<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>预测为真</th>
-<th>预测为假</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>实际为真</td>
-<td>TP(真正例)</td>
-<td>FN(假反例)</td>
-</tr>
-<tr>
-<td>实际为假</td>
-<td>FP(假正例)</td>
-<td>TN(真反例)</td>
-</tr>
-</tbody>
-</table>
+<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><div align="center"><br>|  | 预测为真 | 预测为假 |<br>| — | — | — |<br>| 实际为真 | TP(真正例) | FN(假反例) |<br>| 实际为假 | FP(假正例) | TN(真反例) |<br></div>
+
 <h4 id="精确率-查准率-precision"><a href="#精确率-查准率-precision" class="headerlink" title="精确率/查准率(precision)"></a>精确率/查准率(precision)</h4><p>$$P = \frac{TP}{TP+FP}$$</p>
 <h4 id="召回率-查全率-recall"><a href="#召回率-查全率-recall" class="headerlink" title="召回率/查全率(recall)"></a>召回率/查全率(recall)</h4><p>$$R = \frac{TP}{TP+FN}$$</p>
 <h4 id="准确率-accuracy"><a href="#准确率-accuracy" class="headerlink" title="准确率(accuracy)"></a>准确率(accuracy)</h4><p>$$Acc = \frac{TP+TN}{TP+FP+TN+FN}$$</p>
@@ -256,13 +237,15 @@
 <p>当对精确率和召回率的重视程度不同时，我们可以采用更一般的$F_\beta$</p>
 <p>$$F_\beta = \frac{(1+\beta^2) \times P \times R}{(\beta^2 \times P) + R}$$</p>
 <h4 id="P-R曲线"><a href="#P-R曲线" class="headerlink" title="P-R曲线"></a>P-R曲线</h4><p>以召回率为横轴，精确率为纵轴，得到的曲线为P-R曲线。</p>
-<p><img src="/images/P-R" alt=""></p>
+<div align="center"><br><img src="/images/P-R" alt=""><br></div>
+
 <p>当对两个模型进行比较时，我们可以根据他们P-R曲线下的面积(AP)判断，面积越大性能越好。</p>
 <h4 id="ROC曲线"><a href="#ROC曲线" class="headerlink" title="ROC曲线"></a>ROC曲线</h4><p>先定义真正例率和假正例率：</p>
 <p>$$TPR = \frac{TP}{TP+FN}$$</p>
 <p>$$FPR = \frac{FP}{TN+FP}$$</p>
 <p>以FPR为横轴，TPR为纵轴即可得到ROC曲线。</p>
-<p><img src="/images/roc.png" alt=""></p>
+<div align="center"><br><img src="/images/roc.png" alt=""><br></div>
+
 <h4 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h4><p>ROC曲线下的面积即为AUC，越大说明模型越好。<strong>可以无视正负样本不平衡的影响</strong></p>
 <h4 id="mAP-mean-average-precision"><a href="#mAP-mean-average-precision" class="headerlink" title="mAP(mean average precision)"></a>mAP(mean average precision)</h4><p>常用于多类别物体检测。对每个类别均可以绘制一条P-R曲线，其中AP即指P-R曲线下的面积。mAP即为多个类别AP的平均值。</p>
 <h2 id="奇怪的卷积"><a href="#奇怪的卷积" class="headerlink" title="奇怪的卷积"></a>奇怪的卷积</h2><h4 id="反卷积-转置卷积-deconvolution-transposed-convolution"><a href="#反卷积-转置卷积-deconvolution-transposed-convolution" class="headerlink" title="反卷积/转置卷积 (deconvolution / transposed convolution)"></a>反卷积/转置卷积 (deconvolution / transposed convolution)</h4><p>可以理解为一种特殊的卷积，只不过它会将feature map放大，达到上采样的效果。  </p>
