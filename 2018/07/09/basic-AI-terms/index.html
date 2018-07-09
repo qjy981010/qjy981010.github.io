@@ -227,6 +227,11 @@
 <p>$$x’ = \frac{x-min}{max-min}$$</p>
 <h4 id="标准化-Standardization"><a href="#标准化-Standardization" class="headerlink" title="标准化(Standardization)"></a>标准化(Standardization)</h4><p>使数据均值为0，标准差为1</p>
 <p>$$x’ = \frac{x-\mu}{\sigma}$$</p>
+<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><h4 id="mAP"><a href="#mAP" class="headerlink" title="mAP"></a>mAP</h4><h4 id="反卷积-转置卷积-deconvolution-transposed-convolution"><a href="#反卷积-转置卷积-deconvolution-transposed-convolution" class="headerlink" title="反卷积/转置卷积 (deconvolution / transposed convolution)"></a>反卷积/转置卷积 (deconvolution / transposed convolution)</h4><p>可以理解为一种特殊的卷积，只不过它会将feature map放大，达到上采样的效果。  </p>
+<p><img src="/images/no_padding_no_strides_transposed.gif" alt=""></p>
+<p>上图可以理解3x3的卷积核，padding=2，stride=1的卷积操作。而同时，在特征图大小变化上，与padding=0，stride=1的卷积操作相反。<br>用pytorch实现时代码如下，其中kernel_size为3，stride与padding按其对应的卷积操作参数进行设置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>当卷积操作stride大于1时，此时其对应的转置卷积的stride小于1，此时被称为分数卷积(fractionally-strided convolution)，如下图。</p>
+<p><img src="/images/no_padding_strides_transposed.gif" alt=""></p>
 
 
                 
