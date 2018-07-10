@@ -230,14 +230,13 @@
 <h1 id="基础术语"><a href="#基础术语" class="headerlink" title="基础术语"></a>基础术语</h1><p>下面主要记录一些基础的术语</p>
 <h2 id="信息论-amp-概率论"><a href="#信息论-amp-概率论" class="headerlink" title="信息论&amp;概率论"></a>信息论&amp;概率论</h2><h4 id="熵-Entropy"><a href="#熵-Entropy" class="headerlink" title="熵(Entropy)"></a>熵(Entropy)</h4><p>熵在信息论中可以理解为，一个事件包含的信息量。熵越小，事件包含的信息量就越小。必然事件和不可能事件的熵为0（比如“我是我妈生的”这句话为必然事件，不包含任何信息，信息量为0）。熵定义如下：</p>
 <p>$$S(x) = -\sum_i P(x_i) \log_b P(x_i)$$</p>
-<p>$$S(x) = -\sum _i P(x_i) $$</p>
 <p>其中S为熵，x为事件，当x必然发生或必然不发生时，$P(x)$为1或0，此时S为0。</p>
 <h4 id="KL散度-KL距离-相对熵"><a href="#KL散度-KL距离-相对熵" class="headerlink" title="KL散度/KL距离/相对熵"></a>KL散度/KL距离/相对熵</h4><p>KL散度一般用来计算两个概率分布之间的距离，但它与普通的距离计算不同，因为’A对B的KL距离’不一定等于’B对A的KL距离’。</p>
-<p>对离散事件： $D<em>{KL}(A||B) = \sum </em>{i} P_{A}(x<em>i) \log \frac{P</em>{A}(x<em>i)}{P</em>{B}(x_i)} )$</p>
+<p>对离散事件： $D_{KL}(A||B) = \sum_i P_A (x_i) \log \frac{P_A (x_i)}{P_B(x_i)} )$</p>
 <p>对连续事件： $D_{KL}(A||B) = \int a(x) \log \frac{a(x)}{b(x)}$</p>
 <p>如果A与B的概率分布相同，即$P_A=P_B$，则距离为0。</p>
 <h4 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h4><p>交叉熵同样用来衡量两个分布之间的差异，其定义如下：</p>
-<p>$$H(A,B)= -\sum <em>{i} P</em>{A} (x<em>i) \log (P</em>{B} (x_i))$$</p>
+<p>$$H(A,B)= -\sum_i P_A (x_i) \log (P_B (x_i))$$</p>
 <p>可以推出来 $D_{KL}(A||B) = -S(A)+H(A,B)$</p>
 <h4 id="交叉熵与KL散度的关系"><a href="#交叉熵与KL散度的关系" class="headerlink" title="交叉熵与KL散度的关系"></a>交叉熵与KL散度的关系</h4><ul>
 <li>相同点：a. 都不具备对称性 b. 都是非负的</li>
