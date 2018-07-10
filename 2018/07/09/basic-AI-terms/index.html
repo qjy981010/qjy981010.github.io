@@ -213,7 +213,36 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>这篇博客主要记录一些基础的术语</p>
+                <h1 id="基本问题"><a href="#基本问题" class="headerlink" title="基本问题"></a>基本问题</h1><h4 id="极大似然与负对数损失"><a href="#极大似然与负对数损失" class="headerlink" title="极大似然与负对数损失"></a>极大似然与负对数损失</h4><p>极大似然中，一组参数在一堆数据下的似然值，等于每一条数据在这组参数下的条件概率之积。</p>
+<p>而我们通过模型得到的置信度，其实就是那个条件概率，所以我们的目标是让他们的积最大。</p>
+<p>但损失函数一般是每条数据的损失之和，为了把和变为上面的积，就对每一项取了对数。让对数之和最大，其实就是让负对数之和最小。于是我们便有了负对数损失(NLL Loss)。</p>
+<p>$$L(y) = -\log(\hat{y_i})$$</p>
+<p><em>pytorch中的NLLLoss本身不进行对数运算，只做一个取负</em></p>
+<h4 id="负对数损失与交叉熵损失的关系"><a href="#负对数损失与交叉熵损失的关系" class="headerlink" title="负对数损失与交叉熵损失的关系"></a>负对数损失与交叉熵损失的关系</h4><p>交叉熵损失定义如下，其中$\bm{Y}$为真实label(0/1)，$\bm{\hat{Y}}$为预测的结果</p>
+<p>$$H(\bm{Y},\bm{\hat{Y}})=-\bm{Y}\cdot \log (\bm{\hat{Y}})=-\sum_i y_i \cdot \log (\hat{y_i})$$</p>
+<p>将最右边的式子展开，得到的其实就是负对数损失。</p>
+<h4 id="softmax与交叉熵"><a href="#softmax与交叉熵" class="headerlink" title="softmax与交叉熵"></a>softmax与交叉熵</h4><p>softmax中的$e^x$与交叉熵中的$\log(x)$抵消，使模型易于收敛。<br>因此softmax通常作为输出层的激活函数</p>
+<p><em>pytorch中的CrossEntropyLoss自带softmax</em></p>
+<h4 id="为什么要用softmax"><a href="#为什么要用softmax" class="headerlink" title="为什么要用softmax"></a>为什么要用softmax</h4><ol>
+<li>当使用交叉熵损失时softmax中的$e^x$与交叉熵中的$\log(x)$抵消，使模型易于收敛。</li>
+<li>softmax满足最大熵原则。</li>
+</ol>
+<h1 id="基础术语"><a href="#基础术语" class="headerlink" title="基础术语"></a>基础术语</h1><p>下面主要记录一些基础的术语</p>
+<h2 id="信息论-amp-概率论"><a href="#信息论-amp-概率论" class="headerlink" title="信息论&amp;概率论"></a>信息论&amp;概率论</h2><h4 id="熵-Entropy"><a href="#熵-Entropy" class="headerlink" title="熵(Entropy)"></a>熵(Entropy)</h4><p>熵在信息论中可以理解为，一个事件包含的信息量。熵越小，事件包含的信息量就越小。必然事件和不可能事件的熵为0（比如“我是我妈生的”这句话为必然事件，不包含任何信息，信息量为0）。熵定义如下：</p>
+<p>$$S(x) = -\sum<em>{i}P(x</em>{i})log<em>{b}P(x</em>{i})$$</p>
+<p>其中S为熵，x为事件，当x必然发生或必然不发生时，$P(x)$为1或0，此时S为0。</p>
+<h4 id="KL散度-KL距离-相对熵"><a href="#KL散度-KL距离-相对熵" class="headerlink" title="KL散度/KL距离/相对熵"></a>KL散度/KL距离/相对熵</h4><p>KL散度一般用来计算两个概率分布之间的距离，但它与普通的距离计算不同，因为’A对B的KL距离’不一定等于’B对A的KL距离’。</p>
+<p>对离散事件： $D<em>{KL}(A||B) = \sum</em>{i}P_{A}(x<em>i) log\bigg(\frac{P</em>{A}(x<em>i)}{P</em>{B}(x_i)} \bigg)$</p>
+<p>对连续事件： $D_{KL}(A||B) = \int a(x) log\bigg(\frac{a(x)}{b(x)} \bigg)$</p>
+<p>如果A与B的概率分布相同，即$P_A=P_B$，则距离为0。</p>
+<h4 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h4><p>交叉熵同样用来衡量两个分布之间的差异，其定义如下：</p>
+<p>$$H(A,B)= -\sum<em>{i}P</em>{A}(x<em>i)log(P</em>{B}(x_i))$$</p>
+<p>可以推出来 $D_{KL}(A||B) = -S(A)+H(A,B)$</p>
+<h4 id="交叉熵与KL散度的关系"><a href="#交叉熵与KL散度的关系" class="headerlink" title="交叉熵与KL散度的关系"></a>交叉熵与KL散度的关系</h4><ul>
+<li>相同点：a. 都不具备对称性 b. 都是非负的</li>
+<li>当$S(A)$固定时，最小化KL散度与最小化交叉熵等价。而交叉熵公式更简洁，因此我们一般都使用交叉熵。</li>
+</ul>
+<p>在机器学习中，我们要让模型的分布逼近数据集的分布，而数据集就是上面的A，因此$S(A)$固定</p>
 <h2 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h2><h4 id="欧氏距离-Euclidean-distance"><a href="#欧氏距离-Euclidean-distance" class="headerlink" title="欧氏距离(Euclidean distance)"></a>欧氏距离(Euclidean distance)</h4><p>$$d_{12} = \sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$$</p>
 <h4 id="曼哈顿距离-Manhattan-Distance"><a href="#曼哈顿距离-Manhattan-Distance" class="headerlink" title="曼哈顿距离(Manhattan Distance)"></a>曼哈顿距离(Manhattan Distance)</h4><p>$$d_{12} = |x_1-x_2|+|y_1-y_2|$$</p>
 <h4 id="闵可夫斯基距离-Minkowski-Distance"><a href="#闵可夫斯基距离-Minkowski-Distance" class="headerlink" title="闵可夫斯基距离(Minkowski Distance)"></a>闵可夫斯基距离(Minkowski Distance)</h4><p>可以看做是欧氏距离和曼哈顿距离的一种推广  </p>
