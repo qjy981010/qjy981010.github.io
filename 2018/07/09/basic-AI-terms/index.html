@@ -319,7 +319,17 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=<span class="number">1</span>, padding=<span class="number">0</span>, dilation=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>其中dilation参数默认为1，为1在pytorch中定义为没有空洞。不同框架中对此参数的定义不同，需要注意。</p>
 <hr>
-<h1 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h1><h3 id="batchsize大小"><a href="#batchsize大小" class="headerlink" title="batchsize大小"></a>batchsize大小</h3><p>一般来讲：</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h3 id="预处理一般步骤"><a href="#预处理一般步骤" class="headerlink" title="预处理一般步骤"></a>预处理一般步骤</h3><p>一般需要对数据进行：</p>
+<ol>
+<li>去除无用属性，如每个人的id</li>
+<li>填补缺失值</li>
+<li>特征编码，对非数值特征进行独热编码（若此特征只有两种取值，可以直接0/1）</li>
+<li>数据标准化</li>
+<li>打乱数据</li>
+<li>可能需要降维</li>
+<li>划分训练集、验证集、测试集</li>
+</ol>
+<h2 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h2><h3 id="batchsize大小"><a href="#batchsize大小" class="headerlink" title="batchsize大小"></a>batchsize大小</h3><p>一般来讲：</p>
 <ul>
 <li>batchsize越大，训练越稳定</li>
 <li>在一定范围内，增大batchsize不会增加每个batch的运算时间</li>
