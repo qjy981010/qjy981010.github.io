@@ -222,7 +222,8 @@
 <p>原论文在<a href="https://arxiv.org/abs/1507.05717" target="_blank" rel="noopener">这里</a><br>PS:<strong>是CRNN，不是RCNN</strong>，RCNN是一种物体检测算法，别混了。。</p>
 <p>本文将重点介绍CRNN原理，以及如何用pytorch实现CRNN，并在IIIT-5k数据集上进行尝试</p>
 <h1 id="CRNN解析与构建"><a href="#CRNN解析与构建" class="headerlink" title="CRNN解析与构建"></a>CRNN解析与构建</h1><p>首先让我们看看CRNN的网络总体架构，如下图：</p>
-<p><img src="/images/network_architecture.png" alt=""></p>
+<div align="center"><br><img src="/images/network_architecture.png" alt=""><br></div>
+
 <p>自底向上步骤为：</p>
 <ol>
 <li>通过卷积层提取图像特征</li>
@@ -230,7 +231,8 @@
 <li>转录，将预测序列转化为字母，得到单词</li>
 </ol>
 <p>对于输入的图片，图片首先通过CNN网络，得到特征图。之后，如何将这个特征图送入RNN呢？CRNN将特征图的每一列像素作为一个特征向量，所有列组成一个特征序列，这一序列将作为RNN的输入，即RNN第i个特征向量为特征图第i列，如下图所示。</p>
-<p><img src="/images/receptive_field.png" alt=""></p>
+<div align="center"><br><img src="/images/receptive_field.png" alt=""><br></div>
+
 <p>图中 Feature Sequence 就是特征序列， Receptive Field 就代表原输入图像中的一列（感受野），他们一一对应，且相对位置不变。即原图像上从左到右的每一列，映射到特征序列上，依然保持原来从左到右的顺序。因此特征序列就可以认为是原图像的一种表示。</p>
 <p>也正因为这样一种机制，图片的宽度不一定相同，但高度必须相同。为了方便，我们可以调整输入的图片的高度为32，来保证卷积后得到的特征图的每一列都只有一个像素。</p>
 <p>CRNN具体的网络结构如下：</p>
