@@ -233,13 +233,19 @@
 <h2 id="信息论-amp-概率论"><a href="#信息论-amp-概率论" class="headerlink" title="信息论&amp;概率论"></a>信息论&amp;概率论</h2><h3 id="熵-Entropy"><a href="#熵-Entropy" class="headerlink" title="熵(Entropy)"></a>熵(Entropy)</h3><p>熵在信息论中可以理解为，一个事件包含的信息量。熵越小，事件包含的信息量就越小。必然事件和不可能事件的熵为0（比如“我是我妈生的”这句话为必然事件，不包含任何信息，信息量为0）。熵定义如下：</p>
 <p>$$S(x) = -\sum_i P(x_i) \log_b P(x_i)$$</p>
 <p>其中S为熵，x为事件，当x必然发生或必然不发生时，$P(x)$为1或0，此时S为0。</p>
-<h3 id="KL散度-KL距离-相对熵"><a href="#KL散度-KL距离-相对熵" class="headerlink" title="KL散度/KL距离/相对熵"></a>KL散度/KL距离/相对熵</h3><p>KL散度一般用来计算两个概率分布之间的距离，但它与普通的距离计算不同，因为’A对B的KL距离’不一定等于’B对A的KL距离’。</p>
+<h3 id="KL散度-KL距离-相对熵-relative-entropy"><a href="#KL散度-KL距离-相对熵-relative-entropy" class="headerlink" title="KL散度/KL距离/相对熵(relative entropy)"></a>KL散度/KL距离/相对熵(relative entropy)</h3><p>KL散度一般用来计算两个概率分布之间的距离，但它与普通的距离计算不同，因为’A对B的KL距离’不一定等于’B对A的KL距离’。</p>
 <p>对离散事件： $D_{KL}(A||B) = \sum_i P_A (x_i) \log \frac{P_A (x_i)}{P_B(x_i)} )$</p>
 <p>对连续事件： $D_{KL}(A||B) = \int a(x) \log \frac{a(x)}{b(x)}$</p>
 <p>如果A与B的概率分布相同，即$P_A=P_B$，则距离为0。</p>
-<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>交叉熵同样用来衡量两个分布之间的差异，其定义如下：</p>
+<h3 id="交叉熵-Cross-Entropy"><a href="#交叉熵-Cross-Entropy" class="headerlink" title="交叉熵(Cross Entropy)"></a>交叉熵(Cross Entropy)</h3><p>交叉熵同样用来衡量两个分布之间的差异，其定义如下：</p>
 <p>$$H(A,B)= -\sum_i P_A (x_i) \log (P_B (x_i))$$</p>
 <p>可以推出来 $D_{KL}(A||B) = -S(A)+H(A,B)$</p>
+<h3 id="互信息-mutual-information"><a href="#互信息-mutual-information" class="headerlink" title="互信息(mutual information)"></a>互信息(mutual information)</h3><p>直观上理解，互信息度量X与Y之间共享的信息量。</p>
+<p>若 p(x,y) 是X和Y的联合概率分布函数，而p(x)和p(y)分别是X和Y的边缘概率分布函数。则X与Y的互信息定义为：</p>
+<p>对离散事件： $I(X;Y) = \sum<em>{x \in X} \sum</em>{y \in Y} p(x,y)\log (\frac{p(x,y)}{p(x)p(y)})$</p>
+<p>对连续事件： $I(X;Y) = \int_Y \int_X p(x,y) \log (\frac{p(x,y)}{p(x)p(y)})$</p>
+<p>它其实就是计算了联合概率分布与边缘概率分布乘积之间的KL距离。</p>
+<p>$$I(X;Y)=D_{KL}(p(x,y)||p(x)p(y))$$</p>
 <h3 id="交叉熵与KL散度的关系"><a href="#交叉熵与KL散度的关系" class="headerlink" title="交叉熵与KL散度的关系"></a>交叉熵与KL散度的关系</h3><ul>
 <li>相同点：a. 都不具备对称性 b. 都是非负的</li>
 <li>当$S(A)$固定时，最小化KL散度与最小化交叉熵等价。而交叉熵公式更简洁，因此我们一般都使用交叉熵。</li>
@@ -345,6 +351,7 @@
 <li>日常训练时暂存模型，尽量使用框架提供的方法，仅保存参数。当得到一个较好的模型时，可以考虑将其以.pkl形式保存一份（若定义网络模型的代码有改动，只保存参数会导致无法方便的把参数加载进去）</li>
 <li>保存模型参数时一般同时保存当前的epoch数、优化器的参数</li>
 </ul>
+<h3 id="延拓法"><a href="#延拓法" class="headerlink" title="延拓法"></a>延拓法</h3><p>使用多个损失函数，可以让模型不那么容易被限制在局部最小值点。</p>
 
 
                 
