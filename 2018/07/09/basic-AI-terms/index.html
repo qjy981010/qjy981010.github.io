@@ -324,6 +324,15 @@
 <p>pytorch中实现有一个空洞的卷积操作，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=<span class="number">1</span>, padding=<span class="number">0</span>, dilation=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>其中dilation参数默认为1，为1在pytorch中定义为没有空洞。不同框架中对此参数的定义不同，需要注意。</p>
+<h2 id="深度学习的各种归一化"><a href="#深度学习的各种归一化" class="headerlink" title="深度学习的各种归一化"></a>深度学习的各种归一化</h2><h3 id="BN-LN-IN-GN-SN"><a href="#BN-LN-IN-GN-SN" class="headerlink" title="BN/LN/IN/GN/SN"></a>BN/LN/IN/GN/SN</h3><div align="center"><br><img src="/images/bn_ln_in_gn.png" alt=""><br></div>
+
+<ul>
+<li>batchNorm是在batch上，对NHW做归一化，对小batchsize效果不好；</li>
+<li>layerNorm在通道方向上，对CHW归一化，主要对RNN作用明显；</li>
+<li>instanceNorm在图像像素上，对HW做归一化，用在风格化迁移；</li>
+<li>GroupNorm将channel分组，然后再做归一化；</li>
+<li>SwitchableNorm是将BN、LN、IN结合，赋予权重，让网络自己去学习归一化层应该使用什么方法。</li>
+</ul>
 <hr>
 <h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h3 id="预处理一般步骤"><a href="#预处理一般步骤" class="headerlink" title="预处理一般步骤"></a>预处理一般步骤</h3><p>一般需要对数据进行：</p>
 <ol>
