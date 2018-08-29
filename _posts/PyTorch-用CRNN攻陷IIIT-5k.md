@@ -5,7 +5,10 @@ tags: ['pytorch','crnn','IIIT-5k','OCR','文字识别']
 author: Jiyang Qi
 ---
 
+*已更新至pytorch-0.4*
+
 CRNN是2015年提出的一种，端对端的，场景文字识别方法，它采用CNN与RNN的结合来进行学习。它相对于其他算法主要有以下两个特点：
+
 1. 端对端训练，直接输入图片给出结果，而不是把多个训练好的模型进行组合来识别
 2. 不需要对图片中的文字进行分割就可以进行识别，可以适应任意长度的序列
 
@@ -15,15 +18,25 @@ PS:**是CRNN，不是RCNN**，RCNN是一种物体检测算法，别混了。。
 本文将重点介绍CRNN原理，以及如何用pytorch实现CRNN，并在IIIT-5k数据集上进行尝试
 
 # CRNN解析与构建
+
 首先让我们看看CRNN的网络总体架构，如下图：
+
+<div align=center>
 ![](/images/network_architecture.png)
+</div>
+
 自底向上步骤为：
+
 1. 通过卷积层提取图像特征
 2. 循环层，预测下一帧的字母
 3. 转录，将预测序列转化为字母，得到单词
 
 对于输入的图片，图片首先通过CNN网络，得到特征图。之后，如何将这个特征图送入RNN呢？CRNN将特征图的每一列像素作为一个特征向量，所有列组成一个特征序列，这一序列将作为RNN的输入，即RNN第i个特征向量为特征图第i列，如下图所示。
+
+<div align=center>
 ![](/images/receptive_field.png)
+</div>
+
 图中 Feature Sequence 就是特征序列， Receptive Field 就代表原输入图像中的一列（感受野），他们一一对应，且相对位置不变。即原图像上从左到右的每一列，映射到特征序列上，依然保持原来从左到右的顺序。因此特征序列就可以认为是原图像的一种表示。
 
 也正因为这样一种机制，图片的宽度不一定相同，但高度必须相同。为了方便，我们可以调整输入的图片的高度为32，来保证卷积后得到的特征图的每一列都只有一个像素。
@@ -57,15 +70,20 @@ CRNN具体的网络结构如下：
 下面我们把每个步骤分开来看
 
 ### 卷积
+
 从上表的配置可以看出，卷积层很像VGG-11。不同的地方主要有两个：
+
 1. 增加了批归一化层
 2. 池化层的大小从正方形变成了长方形
 
 加入批归一化层可以加快训练。而用高为2宽为1的长方形更容易获取窄长英文字母的特征，这样更容易区分像i和l这样的字母。
+
 ### 循环
+
 循环层采用深度双向LSTM模型，想多了解LSTM的朋友可以看一下[这个博客](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
 了解了以上两个部分以后，我们就可以开始构建我们的CRNN网络了。
+
 ```python
 import torch
 import torch.nn as nn
@@ -139,9 +157,11 @@ class CRNN(nn.Module):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 ```
+
 上面网络结构的定义可能有点不是很一目了然，但是感觉这样的代码比较容易维护，而且可复用。
 
 ### 转录
+
 网络构建完了，接下来是我们最后的转录过程。在实际模型的训练中，我们需要计算损失，然后根据损失来更新参数。这里我们要用到的损失函数是CTC Loss，这一损失函数比较适合用于我们这种序列数据。
 
 在我写这篇博客时pytorch官方还没有提供计算CTC Loss的API，但是pytorch开发人员已经基于百度的warp-ctc，实现了其pytorch版本，这就是我们本次要用的库。（当然你也可以选择其他库，不过缺点就是其他库速度会慢）
@@ -149,12 +169,14 @@ class CRNN(nn.Module):
 **另：在[我的github上](https://github.com/qjy981010/CRNN.IIIT-5K.pytorch)现以提供了warp-ctc编译好的库，和直接使用方法，不想折(bai)腾(fei)源(li)码(qi)的同学可以用那种方法，然后就可以跳过下面的安装部分了：）**
 
 我们需要手动编译安装这个库，安装的过程可能会非常坑，大家要有耐心。下面的步骤如果出现奇怪的问题，可以看一下[这个库的pytorch-binding的README](https://github.com/SeanNaren/warp-ctc/tree/pytorch_bindings/pytorch_binding)，或者[原百度库的issue](https://github.com/baidu-research/warp-ctc/issues)
+
 ```bash
 # 先把库clone下来
 git clone https://github.com/SeanNaren/warp-ctc
 ```
 
 要注意，这个库比较坑的第一点是，编译时必须保证gcc版本在6.0以下，如何降级请大家参考自己Linux发行版的教程。
+
 ```bash
 cd warp-ctc
 mkdir build
@@ -164,6 +186,7 @@ make
 ```
 
 编译完以后，你需要把你的gcc版本还原回去，不然后面会出问题。然后，你要把`CUDA_HOME`这个环境变量设为你CUDA的安装位置，比如大部分人的安装位置应该是在`/usr/local/cuda`，archlinux是在`/opt/cuda`，所以把下面一句加到`~/.bashrc`
+
 ```bash
 export CUDA_HOME="path/to/your/cuda"
 ```
@@ -175,13 +198,17 @@ python setup.py install
 ```
 
 然后为了保证warpctc_pytorch能被找到，将下面一行加到`~/.bashrc`
+
 ```bash
 export LD_LIBRARY_PATH='/path/to/your/python3.6/site-packages/warpctc_pytorch'
 ```
+
 然后可以试着import一下看能不能用：
+
 ```python
 from warpctc_pytorch import CTCLoss
 ```
+
 不OK的话可以看我github上的`README.md`，或者上面给的两个链接，或者根据报错适当的改一改他的源码。OK的话就非常棒了。
 
 损失函数有了，但是我们数据集中的标签是字符串，这些字符串是无法直接计算损失的，想将他们转化为网络能用的真正的label，我们要将其按一定的格式编码为数字来进行训练。最后从网络中得到结果后，我们又要将这个结果解码，才得到我们想要的字符串。这个解码的过程就是最后的Transcription。
@@ -189,6 +216,7 @@ from warpctc_pytorch import CTCLoss
 首先我们要知道有哪些字符需要我们编码，在IIIT-5K中，我们的label中的字符有A-Z，0-9，还有别忘了空字符。一共37个。
 
 我们用一个类来实现编码解码。要注意的是，因为我们所用的warpctc库的实现中，默认将空字符编码为0，所以我们要为其余字符设置从1开始的编码。
+
 ```python
 class LabelTransformer(object):
     """
@@ -223,24 +251,30 @@ class LabelTransformer(object):
             result.append(''.join(word))
         return result
 ```
+
 这样我们的CRNN的基本流程就搞定了，接下来我们在IIIT-5K上试一试。
 
 # 加载数据
+
 数据集在[这里](http://cvit.iiit.ac.in/projects/SceneTextUnderstanding/IIIT5K.html)下载。
 
 数据集下载下来是.mat文件，还好我大Python有专门的库来加载.mat。  
 *默默说一句：内存小的小朋友一定要谨慎行事，如果内存只有4G的话（像我一样）就要小心了*
+
 ```python
 import scipy.io as sio
 data = sio.loadmat('traindata.mat')
 ```
+
 可以先观察一波数据集，对训练集来说，有用的数据在`data['traindata'][0]`，一共2000条数据，测试集有3000条。其中，每条数据里存的有四项，第一项是图片的文件名，第二项是label（真实标签），第三项第四项分别是大小为50，和1000的字典。数据中的字典十分占内存，他们可以用在转录中过程，本文中并没有使用他们。
 
 pytorch中没有找到现成的API来加载这样的数据，那么我们怎么把数据加载进来呢？比较优雅的做法是继承`torch.utils.data.Dataset`类，在继承这个类时，必须要重载的方法是`__len__`和`__getitem__`。
+
 - `__len__`使我们的类支持Python内置的`len`函数
 - `__getitem__`用来支持取下标运算
 
 同时，我们要注意，CRNN要求传入的图片高度相同，宽度至少为100，比较合适的高度是32。所以我们在这里自己定义一个类用来对图片做缩放。类的定义方法参考`torchvision.transforms`中的类，如下，只需要重载`__call__`即可。
+
 ```python
 import os
 from PIL import Image
@@ -293,6 +327,7 @@ class IIIT5k(Dataset):
     def __getitem__(self, idx):
         return self.img[idx], self.label[idx]
 ```
+
 这样就可以像调用`torchvision.datasets`里的数据集一样方便的调用我们的IIIT-5k了。这里我把图片的加载写在了`__init__`中，内存消耗较大，大家也可以将图片加载写在`__getitem__`中，节省内存，不过速度难免会慢一些。在刚才的类里，我们还给IIIT-5K加了一个`fix_width`参数，至于为什么我们后面会讲。
 
 pytorch提供了一个`DataLoader`类。将我们之前定义的IIIT5k类的实例传入这个类，可以很方便的加载数据，支持多线程、数据打乱、批训练，何乐而不为呢。
@@ -300,6 +335,7 @@ pytorch提供了一个`DataLoader`类。将我们之前定义的IIIT5k类的实�
 其中，批训练可以明显加快训练过程。不过令人心凉的是，在用DataLoader进行批训练时，pytorch默认会将batch中的张量连接起来，而宽度不固定的图片是不能直接连接的。一个方便的做法是直接将所有图片缩放成统一大小的图片，这就是为什么我们上面加了`fix_width`这样一个参数。否则我们就只能一张一张的训练了。
 
 为了加快以后加载数据的过程，可以将我们的IIIT-5k实例存入`.pkl`文件。这样以后加载数据时，省内存，加载更是一秒加载完。
+
 ```python
 import pickle
 from torch.utils.data import DataLoader
@@ -343,152 +379,191 @@ def load_data(root, training=True, fix_width=False):
 # 开始训练
 
 有了上面这些，我们就可以开始训练了。优化方法采用Adadelta，对这类自适应优化算法感兴趣的可以看[我的另一篇博客](https://qjy981010.github.io/2017/12/23/%E8%87%AA%E9%80%82%E5%BA%94%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/)。（Adadelta算法本身并不需要学习速率，但pytorch给他增加了lr这一参数，这个lr其实就是每次迭代时在参数变化量前乘的系数，默认为1，当作学习速率用即可，但在我这里测试时，lr=1时效果不好，于是改用了0.1）。在固定宽度时，lr设为0.1，速度很快。
+
 ```python
 import torch.optim as optim
 from torch.autograd import Variable
 
-def train(root, start_epoch, epoch_num, letters, net=None, lr=0.1, fix_width=False):
+def train(root, start_epoch, epoch_num, letters,
+          net=None, lr=0.1, fix_width=True):
     """
-    训练CRNN
+    Train CRNN model
 
     Args:
-        root (str): 存放数据集的文件夹
-        start_epoch (int): 开始训练的是第多少次epoch，便于对训练过程的追踪回顾。
-        epoch_num (int): 将训练的epoch数目
-        letters (str): 所有的字符组成的字符串
-        net (CRNN, optional): 之前训练过的网络
-        lr (float, optional): 学习速率，默认为0.1，这里注意adadelta本身没有学习速率
-                              pytorch增加了这一参数作为每次迭代参数改变量的系数，一般为1，但设为1时测试效果并不好。
-        fix_width (bool, optional): 是否固定宽度，默认固定
+        root (str): Root directory of dataset
+        start_epoch (int): Epoch number to start
+        epoch_num (int): Epoch number to train
+        letters (str): Letters contained in the data
+        net (CRNN, optional): CRNN model (default: None)
+        lr (float, optional): Coefficient that scale delta before it is applied
+            to the parameters (default: 1.0)
+        fix_width (bool, optional): Scale images to fixed size (default: True)
 
     Returns:
-        CRNN: 训练好的模型
+        CRNN: Trained CRNN model
     """
-    # 加载数据
+
+    # load data
     trainloader = load_data(root, training=True, fix_width=fix_width)
-    # 判断GPU是否可用
-    use_cuda = torch.cuda.is_available()
     if not net:
-        # 如果没有之前训练好的模型，就新建一个
+        # create a new model if net is None
         net = CRNN(1, len(letters) + 1)
-    # 损失函数
+    # loss function
     criterion = CTCLoss()
-    # 优化方法采用Adadelta
-    optimizer = optim.Adadelta(net.parameters(), lr=lr)
+    # Adadelta
+    optimizer = optim.Adadelta(net.parameters(), lr=lr, weight_decay=1e-3)
+    # use gpu or not
+    use_cuda = torch.cuda.is_available()
+    device = torch.device('cuda' if use_cuda else 'cpu')
     if use_cuda:
-        net = net.cuda()
-        criterion = criterion.cuda()
-    # 构建编码解码器
+        net = net.to(device)
+        criterion = criterion.to(device)
+    else:
+        print("*****   Warning: Cuda isn't available!  *****")
+
+    # get encoder and decoder
     labeltransformer = LabelTransformer(letters)
 
     print('====   Training..   ====')
-    # .train() 对批归一化有一定的作用
+    # .train() has any effect on Dropout and BatchNorm.
     net.train()
     for epoch in range(start_epoch, start_epoch + epoch_num):
         print('----    epoch: %d    ----' % (epoch, ))
         loss_sum = 0
         for i, (img, label) in enumerate(trainloader):
             label, label_length = labeltransformer.encode(label)
-            if use_cuda:
-                img = img.cuda()
-            img, label = Variable(img), Variable(label)
-            label_length = Variable(label_length)
-            # 清空梯度
+            img = img.to(device)
             optimizer.zero_grad()
-            # 将图片输入
+            # put images in
             outputs = net(img)
-            output_length = Variable(torch.IntTensor([outputs.size(0)]*outputs.size(1)))
-            # 计算损失
+            output_length = torch.IntTensor(
+                [outputs.size(0)]*outputs.size(1))
+            # calc loss
             loss = criterion(outputs, label, output_length, label_length)
-            # 反向传播
+            # update
             loss.backward()
-            # 更新参数
             optimizer.step()
-            loss_sum += loss.data[0]
+            loss_sum += loss.item()
         print('loss = %f' % (loss_sum, ))
     print('Finished Training')
     return net
 ```
 
-为了验证我们模型的效果，还要定义一个测试函数。
+为了验证我们模型的效果，还要定义一个测试函数。为了检验是否过拟合，我们在计算测试集准确率后又计算了训练集准确率
+
 ```python
 def test(root, net, letters, fix_width=True):
     """
-    测试CRNN模型
+    Test CRNN model
 
     Args:
-        root (str): 存放数据集的文件夹
-        letters (str): 所有的字符组成的字符串
-        net (CRNN, optional): 训练好的网络
-        fix_width (bool, optional): 是否固定宽度，默认固定
+        root (str): Root directory of dataset
+        letters (str): Letters contained in the data
+        net (CRNN, optional): trained CRNN model
+        fix_width (bool, optional): Scale images to fixed size (default: True)
     """
-    # 加载数据
+
+    # load data
+    trainloader = load_data(root, training=True, fix_width=fix_width)
     testloader = load_data(root, training=False, fix_width=fix_width)
-    # 判断GPU是否可用
+    # use gpu or not
     use_cuda = torch.cuda.is_available()
+    device = torch.device('cuda' if use_cuda else 'cpu')
     if use_cuda:
-        net = net.cuda()
-    # 构建编码解码器
+        net = net.to(device)
+    else:
+        print("*****   Warning: Cuda isn't available!  *****")
+    # get encoder and decoder
     labeltransformer = LabelTransformer(letters)
 
     print('====    Testing..   ====')
-    # .eval() 对批归一化有一定的作用
+    # .eval() has any effect on Dropout and BatchNorm.
     net.eval()
-    correct = 0
-    for i, (img, origin_label) in enumerate(testloader):
-        if use_cuda:
-            img = img.cuda()
-        img = Variable(img)
+    acc = []
+    for loader in (testloader, trainloader):
+        correct = 0
+        total = 0
+        for i, (img, origin_label) in enumerate(loader):
+            img = img.to(device)
 
-        outputs = net(img) # length × batch × num_letters
-        outputs = outputs.max(2)[1].transpose(0, 1)  # batch × length
-        outputs = labeltransformer.decode(outputs.data)
-        correct += sum([out == real for out, real in zip(outputs, origin_label)])
-    # 计算准确率
-    print('test accuracy: ', correct / 30, '%')
+            outputs = net(img)  # length × batch × num_letters
+            outputs = outputs.max(2)[1].transpose(0, 1)  # batch × length
+            outputs = labeltransformer.decode(outputs.data)
+            correct += sum([out == real for out,
+                            real in zip(outputs, origin_label)])
+            total += len(origin_label)
+        # calc accuracy
+        acc.append(correct / total * 100)
+    print('testing accuracy: ', acc[0], '%')
+    print('training accuracy: ', acc[1], '%')
 ```
 
 还有最后的main函数。
+
 ```python
-def main(training=True, fix_width=False):
+def main(epoch_num, lr=0.1, training=True, fix_width=True):
     """
-    主函数，控制train与test的调用以及模型的加载存储等
+    Main
 
     Args:
-        training (bool, optional): 为True是训练，为False是测试，默认为True
-        fix_width (bool, optional): 是否固定图片宽度，默认为False
+        training (bool, optional): If True, train the model, otherwise test it (default: True)
+        fix_width (bool, optional): Scale images to fixed size (default: True)
     """
-    file_name = ('fix_width_' if fix_width else '') + 'crnn.pkl'
+
+    model_path = ('fix_width_' if fix_width else '') + 'crnn.pth'
     letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     root = 'data/IIIT5K/'
     if training:
-        net = None
+        net = CRNN(1, len(letters) + 1)
         start_epoch = 0
-        epoch_num = 2 # 每训练两个epoch进行一次测试
-        lr = 0.1
-        if os.path.exists(file_name):
+        # if there is pre-trained model, load it
+        if os.path.exists(model_path):
             print('Pre-trained model detected.\nLoading model...')
-            start_epoch, net = pickle.load(open(file_name, 'rb'))
+            net.load_state_dict(torch.load(model_path))
         if torch.cuda.is_available():
             print('GPU detected.')
-        for i in range(5):
-            net = train(root, start_epoch, epoch_num, letters, net=net, lr=lr, fix_width=fix_width)
-            start_epoch += epoch_num
-            test(root, net, letters, fix_width=fix_width)
-        # 将训练的epoch数与我们的模型保存起来，模型还可以加载出来继续训练
-        pickle.dump((start_epoch, net), open(file_name, 'wb'), True)
+        net = train(root, start_epoch, epoch_num, letters,
+                    net=net, lr=lr, fix_width=fix_width)
+        # save the trained model for training again
+        torch.save(net.state_dict(), model_path)
+        # test
+        test(root, net, letters, fix_width=fix_width)
     else:
-        start_epoch, net = pickle.load(open(file_name, 'rb'))
+        net = CRNN(1, len(letters) + 1)
+        if os.path.exists(model_path):
+            net.load_state_dict(torch.load(model_path))
         test(root, net, letters, fix_width=fix_width)
 ```
 
 终于，我们可以愉快的训练了：）
+
 ```python
 if __name__ == '__main__':
-    main(training=True, fix_width=False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--epoch_num', type=int, default=20, help='number of epochs to train for (default=20)')
+    parser.add_argument('--lr', type=float, default=0.1, help='learning rate for optim (default=0.1)')
+    parser.add_argument('--test', action='store_true', help='Whether to test directly (default is training)')
+    parser.add_argument('--fix_width', action='store_true', help='Whether to resize images to the fixed width (default is True)')
+    opt = parser.parse_args()
+    print(opt)
+    main(opt.epoch_num, lr=opt.lr, training=(not opt.test), fix_width=opt.fix_width)
 ```
+
 全部代码在[我的github上](https://github.com/qjy981010/CRNN.IIIT-5K.pytorch)，欢迎issue和star！！
 
-按论文上的说法，在IIIT-5K数据集上，无字典训练可以达到70%的准确率。我在测试时，如果固定图片高度进行批训练，速度就非常快了，学习速率设为0.1，很快就能把准确率提升到50%左右。不过毕竟数据太少，还没能达到论文的效果。
+按论文上的说法，在IIIT-5K数据集上，无字典训练可以达到70%的准确率。我在测试时，如果固定图片高度进行批训练，速度就非常快了，学习速率设为0.1，很快就能把测试集准确率提升到50%左右。不过毕竟数据太少，过拟合很严重，还没能达到论文的效果。大家可以尝试将weight decay调大，或者增加dropout层。
 
 如果出现`Out of Memory`这类错误，请降低加载数据是的`batch_size`和`num_workers`。
+
+# 带字典解决方案
+
+当使用带字典的数据集时，我们可以根据预测出来的序列，对字典中的每个字符串计算其条件概率。为了节省运算时间，我们可以先对字典的每个字符串，求其与我们预测出序列的编辑距离，再对编辑距离小的计算条件概率。  
+条件概率的计算公式如下：
+
+$$p(\mathbf{l}|\mathbf{y})=\sum_{\boldsymbol{\pi}:{B}(\boldsymbol{\pi})=\mathbf{l}}p(\boldsymbol{\pi}|\mathbf{y})$$
+
+$$p(\boldsymbol{\pi}|\mathbf{y})=\prod_{t=1}^{T}y_{\pi_{t}}^{t}$$
+
+其中$y_{\pi_{t}}^{t}$为t时刻标签为$\pi_{t}$的概率。
+
+带字典的解决方案我没有自己实现，大家可以自己编写代码。
