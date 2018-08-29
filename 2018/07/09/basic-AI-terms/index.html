@@ -259,7 +259,10 @@
 <h3 id="马氏距离-Mahalanobis-Distance"><a href="#马氏距离-Mahalanobis-Distance" class="headerlink" title="马氏距离(Mahalanobis Distance)"></a>马氏距离(Mahalanobis Distance)</h3><p>前面的距离度量均会受到变量量纲的影响，而马氏距离通过对数据的仿射变换，消除了这种影响。这是它的优点，而在某些情况下也会成为它的缺点。</p>
 <p>定义：有m个样本向量$X_1, X_m$，协方差矩阵记为S，则其中向量$X_i$与$X_j$之间的马氏距离定义为：</p>
 <p>$$D(X_i,X_j) = \sqrt{(X_i-X_j)^TS^{-1}(X_i-X_j)}$$</p>
+<h3 id="余弦距离-Cosine-Distance"><a href="#余弦距离-Cosine-Distance" class="headerlink" title="余弦距离(Cosine Distance)"></a>余弦距离(Cosine Distance)</h3><p>与欧氏距离相比，余弦距离对各个特征之间的相对大小更为敏感，对绝对大小却不怎么敏感。在人脸检索等领域，貌似余弦距离与欧氏距离表现差不多？不过毕竟欧氏距离更直观，所以除一些特定问题外还是用欧氏距离吧。<br>对它比较有兴趣的可以看看<a href="https://cmry.github.io/notes/euclidean-v-cosine" target="_blank" rel="noopener">这个</a></p>
 <h3 id="编辑距离-Levenshtein-Distance"><a href="#编辑距离-Levenshtein-Distance" class="headerlink" title="编辑距离(Levenshtein Distance)"></a>编辑距离(Levenshtein Distance)</h3><p>用来定义两个字符串之间的距离，指两个字串之间，由一个转成另一个所需的最少编辑操作次数。Standardization字符，删除字符。</p>
+<h3 id="杰卡德距离-Jaccard-Distance"><a href="#杰卡德距离-Jaccard-Distance" class="headerlink" title="杰卡德距离(Jaccard Distance)"></a>杰卡德距离(Jaccard Distance)</h3><p>用于衡量集合间的距离，定义为两集合的交集与并集中元素数量的比值。</p>
+<p>$$J(A,B) = \frac{|A\bigcap B|}{|A\bigcup B|}$$</p>
 <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="归一化-Normalization"><a href="#归一化-Normalization" class="headerlink" title="归一化(Normalization)"></a>归一化(Normalization)</h3><p>通过对原始数据进行线性变换把数据映射到[0,1]之间</p>
 <p>$$x’ = \frac{x-min}{max-min}$$</p>
 <h3 id="标准化-Standardization"><a href="#标准化-Standardization" class="headerlink" title="标准化(Standardization)"></a>标准化(Standardization)</h3><p>使数据均值为0，标准差为1</p>
