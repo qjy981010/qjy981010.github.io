@@ -214,7 +214,7 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>一篇笔记向博客</p>
-<h1 id="基本问题"><a href="#基本问题" class="headerlink" title="基本问题"></a>基本问题</h1><h3 id="极大似然与负对数损失"><a href="#极大似然与负对数损失" class="headerlink" title="极大似然与负对数损失"></a>极大似然与负对数损失</h3><p>极大似然中，一组参数在一堆数据下的似然值，等于每一条数据在这组参数下的条件概率之积。</p>
+<h1 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h1><h3 id="极大似然与负对数损失"><a href="#极大似然与负对数损失" class="headerlink" title="极大似然与负对数损失"></a>极大似然与负对数损失</h3><p>极大似然中，一组参数在一堆数据下的似然值，等于每一条数据在这组参数下的条件概率之积。</p>
 <p>而我们通过模型得到的置信度，其实就是那个条件概率，所以我们的目标是让他们的积最大。</p>
 <p>但损失函数一般是每条数据的损失之和，为了把和变为上面的积，就对每一项取了对数。让对数之和最大，其实就是让负对数之和最小。于是我们便有了负对数损失(NLL Loss)。</p>
 <p>$$L(y) = -\log(\hat{y_i})$$</p>
@@ -229,7 +229,7 @@
 <li>softmax满足最大熵原则。</li>
 </ol>
 <hr>
-<h1 id="基础术语"><a href="#基础术语" class="headerlink" title="基础术语"></a>基础术语</h1><p>下面主要记录一些基础的术语</p>
+<h1 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h1><p>下面主要记录一些基础的术语</p>
 <h2 id="信息论-amp-概率论"><a href="#信息论-amp-概率论" class="headerlink" title="信息论&amp;概率论"></a>信息论&amp;概率论</h2><h3 id="熵-Entropy"><a href="#熵-Entropy" class="headerlink" title="熵(Entropy)"></a>熵(Entropy)</h3><p>熵在信息论中可以理解为，一个事件包含的信息量。熵越小，事件包含的信息量就越小。必然事件和不可能事件的熵为0（比如“我是我妈生的”这句话为必然事件，不包含任何信息，信息量为0）。熵定义如下：</p>
 <p>$$S(x) = -\sum_i P(x_i) \log_b P(x_i)$$</p>
 <p>其中S为熵，x为事件，当x必然发生或必然不发生时，$P(x)$为1或0，此时S为0。</p>
@@ -259,7 +259,8 @@
 <h3 id="马氏距离-Mahalanobis-Distance"><a href="#马氏距离-Mahalanobis-Distance" class="headerlink" title="马氏距离(Mahalanobis Distance)"></a>马氏距离(Mahalanobis Distance)</h3><p>前面的距离度量均会受到变量量纲的影响，而马氏距离通过对数据的仿射变换，消除了这种影响。这是它的优点，而在某些情况下也会成为它的缺点。</p>
 <p>定义：有m个样本向量$X_1, X_m$，协方差矩阵记为S，则其中向量$X_i$与$X_j$之间的马氏距离定义为：</p>
 <p>$$D(X_i,X_j) = \sqrt{(X_i-X_j)^TS^{-1}(X_i-X_j)}$$</p>
-<h3 id="余弦距离-Cosine-Distance"><a href="#余弦距离-Cosine-Distance" class="headerlink" title="余弦距离(Cosine Distance)"></a>余弦距离(Cosine Distance)</h3><p>与欧氏距离相比，余弦距离对各个特征之间的相对大小更为敏感，对绝对大小却不怎么敏感。在人脸检索等领域，貌似余弦距离与欧氏距离表现差不多？不过毕竟欧氏距离更直观，所以除一些特定问题外还是用欧氏距离吧。<br>对它比较有兴趣的可以看看<a href="https://cmry.github.io/notes/euclidean-v-cosine" target="_blank" rel="noopener">这个</a></p>
+<h3 id="余弦距离-Cosine-Distance"><a href="#余弦距离-Cosine-Distance" class="headerlink" title="余弦距离(Cosine Distance)"></a>余弦距离(Cosine Distance)</h3><p>与欧氏距离相比，余弦距离对各个特征之间的相对大小更为敏感，对绝对大小却不怎么敏感。在人脸检索等领域，貌似余弦距离与欧氏距离表现差不多？不过毕竟欧氏距离更直观，所以除一些特定问题外还是用欧氏距离吧。</p>
+<p>对它比较有兴趣的可以看看<a href="https://cmry.github.io/notes/euclidean-v-cosine" target="_blank" rel="noopener">这个</a></p>
 <h3 id="编辑距离-Levenshtein-Distance"><a href="#编辑距离-Levenshtein-Distance" class="headerlink" title="编辑距离(Levenshtein Distance)"></a>编辑距离(Levenshtein Distance)</h3><p>用来定义两个字符串之间的距离，指两个字串之间，由一个转成另一个所需的最少编辑操作次数。Standardization字符，删除字符。</p>
 <h3 id="杰卡德距离-Jaccard-Distance"><a href="#杰卡德距离-Jaccard-Distance" class="headerlink" title="杰卡德距离(Jaccard Distance)"></a>杰卡德距离(Jaccard Distance)</h3><p>用于衡量集合间的距离，定义为两集合的交集与并集中元素数量的比值。物体检测中的IoU其实就是杰拉德距离。</p>
 <p>$$J(A,B) = \frac{|A\bigcap B|}{|A\bigcup B|}$$</p>
@@ -327,6 +328,7 @@
 <p>pytorch中实现有一个空洞的卷积操作，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=<span class="number">1</span>, padding=<span class="number">0</span>, dilation=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>其中dilation参数默认为1，为1在pytorch中定义为没有空洞。不同框架中对此参数的定义不同，需要注意。</p>
+<p>空洞卷积感受野大的特点使其可以处理长序列问题，与RNN平起平坐。</p>
 <h2 id="深度学习的各种归一化"><a href="#深度学习的各种归一化" class="headerlink" title="深度学习的各种归一化"></a>深度学习的各种归一化</h2><h3 id="BN-LN-IN-GN-SN"><a href="#BN-LN-IN-GN-SN" class="headerlink" title="BN/LN/IN/GN/SN"></a>BN/LN/IN/GN/SN</h3><div align="center"><br><img src="/images/bn_ln_in_gn.png" alt=""><br></div>
 
 <ul>
