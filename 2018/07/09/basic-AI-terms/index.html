@@ -339,7 +339,7 @@
 <li>SwitchableNorm是将BN、LN、IN结合，赋予权重，让网络自己去学习归一化层应该使用什么方法。</li>
 </ul>
 <h2 id="机器学习问题"><a href="#机器学习问题" class="headerlink" title="机器学习问题"></a>机器学习问题</h2><h3 id="维数灾难"><a href="#维数灾难" class="headerlink" title="维数灾难"></a>维数灾难</h3><p>维数（特征）增多主要会带来的高维空间数据稀疏化问题，所以当特征较多而数据较少时易造成过拟合。</p>
-<p>同时，高维空间下，因为最大与最小欧氏距离之间的相对差距会越来越小($\lim<em>{d \rightarrow \infty}{x} \frac{max</em>{E<em>{d}}-min</em>{E<em>{d}}}{min</em>{E_{d}}}\rightarrow0$)，所以收敛会变慢。</p>
+<p>同时，高维空间下，因为最大与最小欧氏距离之间的相对差距会越来越小($\lim<em>{d \to \infty} \frac{D</em>{max}-D<em>{min}}{D</em>{min}} \to 0$)，所以收敛会变慢。</p>
 <hr>
 <h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h3 id="预处理一般步骤"><a href="#预处理一般步骤" class="headerlink" title="预处理一般步骤"></a>预处理一般步骤</h3><p>一般需要对数据进行：</p>
 <ol>
