@@ -242,7 +242,7 @@
 <p>可以推出来 $D_{KL}(A||B) = -S(A)+H(A,B)$</p>
 <h3 id="互信息-mutual-information"><a href="#互信息-mutual-information" class="headerlink" title="互信息(mutual information)"></a>互信息(mutual information)</h3><p>直观上理解，互信息度量X与Y之间共享的信息量。</p>
 <p>若 p(x,y) 是X和Y的联合概率分布函数，而p(x)和p(y)分别是X和Y的边缘概率分布函数。则X与Y的互信息定义为：</p>
-<p>对离散事件： $I(X;Y) = \sum<em>{x \in X} \sum</em>{y \in Y} p(x,y)\log (\frac{p(x,y)}{p(x)p(y)})$</p>
+<p>对离散事件： $I(X;Y) = \sum_{x \in X} \sum_{y \in Y} p(x,y)\log (\frac{p(x,y)}{p(x)p(y)})$</p>
 <p>对连续事件： $I(X;Y) = \int_Y \int_X p(x,y) \log (\frac{p(x,y)}{p(x)p(y)})$</p>
 <p>它其实就是计算了联合概率分布与边缘概率分布乘积之间的KL距离。</p>
 <p>$$I(X;Y)=D_{KL}(p(x,y)||p(x)p(y))$$</p>
@@ -318,7 +318,7 @@
 <p>当卷积操作stride大于1时，此时其对应的转置卷积的stride小于1，此时被称为分数卷积(fractionally-strided convolution)，如下图：</p>
 <div align="center"><br><img src="/images/no_padding_strides_transposed.gif" alt=""><br></div>
 
-<p><a href="https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md" target="_blank" rel="noopener">for more .gif</a></p>
+<p><a href="https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md" target="_blank" rel="noopener">more .gif are here</a></p>
 <h3 id="空洞卷积-扩张卷积-Dilated-Convolutions"><a href="#空洞卷积-扩张卷积-Dilated-Convolutions" class="headerlink" title="空洞卷积/扩张卷积(Dilated Convolutions)"></a>空洞卷积/扩张卷积(Dilated Convolutions)</h3><p>空洞卷积可以在基本不增加计算量的前提下，增大感受野。之前如果需要扩大感受野，都是采用池化，但池化会造成分辨率下降。</p>
 <div align="center"><br><img src="/images/dilation.gif" alt=""><br></div>
 
