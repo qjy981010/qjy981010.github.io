@@ -226,7 +226,8 @@
 <p><em>注意：pytorch中的CrossEntropyLoss自带softmax</em></p>
 <h3 id="为什么要用softmax"><a href="#为什么要用softmax" class="headerlink" title="为什么要用softmax"></a>为什么要用softmax</h3><ol>
 <li>当使用交叉熵损失时softmax中的$e^x$与交叉熵中的$\log(x)$抵消，使模型易于收敛。</li>
-<li>softmax满足最大熵原则。</li>
+<li>我们希望特征对概率的影响是乘性的，即各个部分的概率相乘得到最后的概率。但在我们模型中各个概率是相加的，所以以指数的形式将其改为相乘关系。</li>
+<li>softmax满足最大熵原则。即在满足一系列限制条件的情况下，对一个多分类问题，没有任何先验知识的系统，最公正的，也就是最没有偏私，才能让不确定性最大，这就必然导致概率分布满足boltamann形式，也就是softmax。</li>
 </ol>
 <hr>
 <h1 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h1><p>下面主要记录一些基础的术语</p>
@@ -328,7 +329,7 @@
 <p>pytorch中实现有一个空洞的卷积操作，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=<span class="number">1</span>, padding=<span class="number">0</span>, dilation=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>其中dilation参数默认为1，为1在pytorch中定义为没有空洞。不同框架中对此参数的定义不同，需要注意。</p>
-<p>空洞卷积感受野大的特点使其可以处理长序列问题，与RNN平起平坐。</p>
+<p>空洞卷积感受野大的特点使其可以处理长序列问题，甚至可以达到和RNN相差无几的效果。</p>
 <h2 id="深度学习的各种归一化"><a href="#深度学习的各种归一化" class="headerlink" title="深度学习的各种归一化"></a>深度学习的各种归一化</h2><h3 id="BN-LN-IN-GN-SN"><a href="#BN-LN-IN-GN-SN" class="headerlink" title="BN/LN/IN/GN/SN"></a>BN/LN/IN/GN/SN</h3><div align="center"><br><img src="/images/bn_ln_in_gn.png" alt=""><br></div>
 
 <ul>
