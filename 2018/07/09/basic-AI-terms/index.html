@@ -352,7 +352,12 @@
 <li>可能需要降维</li>
 <li>划分训练集、验证集、测试集</li>
 </ol>
-<h2 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h2><h3 id="batchsize大小"><a href="#batchsize大小" class="headerlink" title="batchsize大小"></a>batchsize大小</h3><p>一般来讲：</p>
+<h3 id="提高最终结果"><a href="#提高最终结果" class="headerlink" title="提高最终结果"></a>提高最终结果</h3><ol>
+<li>bagging/boosting大法</li>
+<li>图片金字塔：对检测等任务，可以将图片缩放为不同大小再输入，最后综合多个结果</li>
+</ol>
+<h2 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h2><h3 id="预训练"><a href="#预训练" class="headerlink" title="预训练"></a>预训练</h3><p>使用别人预训练的模型时，最好要保证自己的数据分布与别人的数据分布一致，比如对于图片分类，若用imagenet预训练模型，最好先将图片每个channel标准化</p>
+<h3 id="batchsize大小"><a href="#batchsize大小" class="headerlink" title="batchsize大小"></a>batchsize大小</h3><p>一般来讲：</p>
 <ul>
 <li>batchsize越大，训练越稳定</li>
 <li>在一定范围内，增大batchsize不会增加每个batch的运算时间</li>
@@ -369,6 +374,13 @@
 <li>保存模型参数时一般同时保存当前的epoch数、优化器的参数</li>
 </ul>
 <h3 id="延拓法"><a href="#延拓法" class="headerlink" title="延拓法"></a>延拓法</h3><p>使用多个损失函数，可以让模型不那么容易被限制在局部最小值点。</p>
+<h2 id="常见bug记录"><a href="#常见bug记录" class="headerlink" title="常见bug记录"></a>常见bug记录</h2><h3 id="loss不下降"><a href="#loss不下降" class="headerlink" title="loss不下降"></a>loss不下降</h3><ol>
+<li>output与target没有对应好。注意在view前的permute</li>
+<li>有些参数没有保存。例：在模型类中用了list存模型，而没有用modulelist</li>
+</ol>
+<h3 id="再次训练时模型loss大幅上升"><a href="#再次训练时模型loss大幅上升" class="headerlink" title="再次训练时模型loss大幅上升"></a>再次训练时模型loss大幅上升</h3><ol>
+<li>代码中有随机作用。例：每次读取label时，都放入set去重再转为list，但这个list的顺序每次会不同，导致错误</li>
+</ol>
 
 
                 
