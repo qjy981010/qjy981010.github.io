@@ -216,15 +216,15 @@
                 <p>人体姿态估计（human pose estimation）即人体关键点检测<br><img src="/images/human-pose-estimation/example.jpg" alt="example"></p>
 <h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><p>传统方法都是基于模板匹配的思想</p>
 <p>比如Pictorial Structure，这是一个比较经典的传统思路，主要考虑单元模板以及模板关系。此算法在模板关系中使用弹簧模型，保证模板间的相对关系和灵活性。<br><img src="/images/human-pose-estimation/tradition.jpg" alt="Pictorial Structure"></p>
-<h2 id="深度学习方法的-Ground-Truth"><a href="#深度学习方法的-Ground-Truth" class="headerlink" title="深度学习方法的 Ground Truth"></a>深度学习方法的 Ground Truth</h2><p>对于人体骨骼关键点检测的 Ground truth，主要有三种：<br><img src="/images/human-pose-estimation/ground_truth.jpg" alt="ground truth"><br><img src="/images/human-pose-estimation/heatmap+offset.jpg" alt="heatmap + offset"></p>
+<h2 id="深度学习的-Ground-Truth"><a href="#深度学习的-Ground-Truth" class="headerlink" title="深度学习的 Ground Truth"></a>深度学习的 Ground Truth</h2><p>对于人体骨骼关键点检测的 Ground truth，主要有三种：<br><img src="/images/human-pose-estimation/ground_truth.jpg" alt="ground truth"><br><img src="/images/human-pose-estimation/heatmap+offset.jpg" alt="heatmap + offset"></p>
 <ul>
 <li>Coordinate（坐标点），直接将关键点的坐标作为网络的回归目标。(2015 年之前</li>
 <li>Heatmap（热力图），即对每种关键点构建一个热力图，热力图中每个点的大小表示此点为某类点的概率，距离关键点越近概率越大。训练模型回归每个像素的概率即可。</li>
-<li>Heatmap+Offset，是前两种的结合，在关键点周围的一定范围内，所有点概率均为1，且用一个offset来表示这些点与关键点的关系。</li>
+<li>Heatmap+Offset，是前两种的结合，在关键点周围的一定范围内，所有点概率均为1，且用一个offset来表示这些点与关键点的关系。（只在Google的G-RMI中用到</li>
 </ul>
-<p><img src="/images/human-pose-estimation/heatmap_avgormax.jpg" alt="heatmap average or max"></p>
+<p>当两个点距离较近时，采用Average或Max作为最终的置信度。<br><img src="/images/human-pose-estimation/heatmap_avgormax.jpg" alt="heatmap average or max"></p>
 <p>从效果上看 heatmap 比 coordinate 好不少。</p>
-<h2 id="深度学习方法的方向"><a href="#深度学习方法的方向" class="headerlink" title="深度学习方法的方向"></a>深度学习方法的方向</h2><p>人体姿态估计，按分类问题，分为单人姿态估计和多人姿态估计。</p>
+<h2 id="深度学习方法"><a href="#深度学习方法" class="headerlink" title="深度学习方法"></a>深度学习方法</h2><p>人体姿态估计，按分类问题，分为单人姿态估计和多人姿态估计。</p>
 <p>多人姿态估计主要又分为两个方向，一个是Top-Down（从上到下），一个是Bottom-Up（从下到上）</p>
 <ul>
 <li>Top-Down 首先提取 human proposal ，抠出每个人，一般使用常用检测方法如Faster-RCNN、SSD等，再对crop出的图片进行关键点检测</li>
@@ -243,24 +243,27 @@
 <p>上面已经提到了，Top-Down结构先检测人，再把每个人crop出来检测关键点。<br>首先简单说一下人的检测，论文里采用FPN + RoIAlign + Soft-NMS，FPN可以融合多尺度信息，RoIAlign是在Mask-RCNN中用到的代替RoIPooling的方法，Soft-NMS是对普通NMS（Hard-NMS）的改进，可以提高检测的召回率。</p>
 <p>数据增强中，将检测出的图片先padding到固定长宽比后，再resize到固定大小。此外值得一提的是，在人体姿态估计任务中，Random Rotation用的比较多，一般会旋转某个随机度数，角度一般限制在(-30/45度, +30/45度)区间内。</p>
 <p><img src="/images/human-pose-estimation/cpn.png" alt="CPN"><br>网络分为两个部分，GlobalNet 和 RefineNet。GlobalNet基于特征金字塔网络得到特征，RefineNet显式的处理“困难”点。</p>
-<p><img src="/images/human-pose-estimation/globalnet.png" alt="Global Net"><br>GlobalNet类似于ResNet+FPN，模型结构如图。ResNet部分将4个feature map取出后，经过一层1x1卷积即得到heatmap，送入类似与FPN的部分。与FPN不同的是，在融合多尺度信息的上采样过程中增加了一层1x1卷积。</p>
+<p><img src="/images/human-pose-estimation/globalnet.png" alt="Global Net"><br>GlobalNet类似于ResNet+FPN，模型结构如图。ResNet部分将4个feature map取出后，经过一层1x1卷积即得到heatmap，送入类似于FPN的部分。与FPN不同的是，在融合多尺度信息的上采样过程中增加了一层1x1卷积。</p>
 <p>RefineNet接收GlobalNet输出的4个feature map，使用常见的Hard Negative Mining策略，在训练时取损失较大的top-K个关键点计算损失，然后进行梯度更新，不考虑损失较小的关键点。</p>
 <h2 id="Multi-person：-Bottom-Up"><a href="#Multi-person：-Bottom-Up" class="headerlink" title="Multi person： Bottom-Up"></a>Multi person： Bottom-Up</h2><h3 id="OpenPose-PAF"><a href="#OpenPose-PAF" class="headerlink" title="OpenPose(PAF)"></a>OpenPose(PAF)</h3><p><a href="https://arxiv.org/abs/1611.08050" target="_blank" rel="noopener">论文链接</a></p>
 <p>OpenPose是一个Bottom-Up模型，此类模型在预测heatmap时使用单人姿态估计方法即可，主要问题在于如何找到关键点之间的联系，将各个关键点聚类到各个人。</p>
 <p>OpenPose的在主要思想是使用PAF(部分亲和字段)，分部分将属于一个整体的点连接起来。</p>
 <p><img src="/images/human-pose-estimation/paf_pipeline.png" alt="PAF pipeline"><br>模型需要输出整张图片的heatmap即<strong>置信图S</strong>(如上图(b)部分)，同时还需要预测出一个<strong>二维矢量场L</strong>(如上图(c)部分)。</p>
-<p>$S$ 即heatmap，与前面不同的是，这里的每个heatmap要提取出不止一个关键点，那就不能简单的取概率最大的点了，论文中使用了NMS来获得多个关键点。</p>
-<p>$L$ 对每个点用一个$\Delta x$和一个$\Delta y$表示其方向向量。<br>假设我们要对下图的胳膊提取关键点，两个关键点分别是$x_{j<em>1,k}$和$x</em>{j<em>2,k}$，其中的k代表第k个人。$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$这条线段两侧一定距离内(这个参数论文没讲怎么设)的点的groud truth，均为$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$的单位向量，其他点值为0。(若多个人的ground truth有重合，则取平均值)<br><img src="/images/human-pose-estimation/arm.png" alt="arm example"><br>在预测时，$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$线段上均匀取m个点，他们每个点预测的L(双线性差值得到)，与$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$单位向量的乘积之和，即为$x</em>{j<em>1,k}$和$x</em>{j_2,k}$之间的连接权重。<br>论文中的公式如下：<br><img src="/images/human-pose-estimation/paf_weight.png" alt="公式"></p>
+<ul>
+<li>$S$ 即heatmap，与前面不同的是，这里的每个heatmap要提取出不止一个关键点，那就不能简单的取概率最大的点了，论文中使用了NMS来获得多个关键点。</li>
+<li>$L$ 对每个点用一个$\Delta x$和一个$\Delta y$表示其方向向量。</li>
+</ul>
+<p>对于$L$，假设我们要对下图的胳膊提取关键点，两个关键点分别是 $x_{j<em>1,k}$ 和 $x</em>{j<em>2,k}$，其中的k代表第k个人。$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$这条线段两侧一定距离内(这个参数论文没讲怎么设)的点的groud truth，均为$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$的单位向量，其他点值为0。(若多个人的ground truth有重合，则取平均值)<br><img src="/images/human-pose-estimation/arm.png" alt="arm example"><br>在预测时，$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$线段上均匀取m个点，他们每个点预测的L(双线性差值得到)，与$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$单位向量的乘积之和，即为$x</em>{j<em>1,k}$和$x</em>{j_2,k}$之间的连接权重。</p>
+<p>论文中的公式如下：<br><img src="/images/human-pose-estimation/paf_weight.png" alt="公式"></p>
 <p>下图为模型的主要结构，其中F为图片经过VGG的前10层得到的feature map。模型同样采用multi-stage结构，在每个stage都算一次loss做中继监督。每个stage的输入为上一个stage输出的S、L及F的concat结果。<br><img src="/images/human-pose-estimation/paf.png" alt="PAF"></p>
 <p>现在知道了各个点及他们之间的连接权重，使用二分图匹配的匈牙利算法即可找到最终配对。</p>
 <h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><ul>
-<li><strong>PCK</strong>: Percentage of Correct Keypoints (PCK)，reports the percentage of keypoint detection falling within a normalized distance of the ground truth. For FLIC, distance is normalized by torso size, and for MPII, by a fraction of the head size (referred to as PCKh).</li>
-<li><strong>mAP</strong>: 人体骨骼关键点的评价指标类比通用的物体检测评价方式，将最终的mAP(mean Average Precision)值作为评价依据。物体检测任务中使用IoU(Intersection over Union)来评价预测与真实标注之间的差异，在人体骨骼关键点检测任务中，我们使用OKS(Object Keypoint Similarity)代替IoU，对选手预测的人体骨骼关键点位置与真实标注之间的相似性进行打分。</li>
+<li>单人姿态估计<strong>PCK</strong>: Percentage of Correct Keypoints (PCK)，关键点与groundtruth间的归一化距离小于设定阈值的比例。</li>
+<li>多人姿态估计<strong>mAP</strong>: mean Average Precision (mAP)，物体检测任务中使用IoU(Intersection over Union)来评价预测与真实标注之间的差异，在人体骨骼关键点检测任务中，我们使用OKS(Object Keypoint Similarity)代替IoU，对选手预测的人体骨骼关键点位置与真实标注之间的相似性进行打分。</li>
 </ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>挑战：对遮挡、关键点重叠、非明显关节的应对不完善</p>
-<ul>
-<li>目前单人的姿态识别技术已经很成熟，由于一张图只含有一个人，所以用时来说100ms左右。Open-pose的CPM模型采用的大卷积核来获得大的感受野，对于推断被遮挡的关节是很有效的，实现起来简单，只不过速度略慢一点。单人方法可以考虑CPM。</li>
-<li>多人的姿态识别top-down的方法总体来说效果好于bottom-up的方法，而bottom-up的速度明显要优于top-down。取舍的话，Openpose是一个不错的选择。商用的话，感觉提速是必须的一个过程。</li>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>目前单人的姿态识别技术已经很成熟，速度也比较快，一般需要较大的感受野。</li>
+<li>多人的姿态识别top-down的方法总体来说效果好于bottom-up的方法，而bottom-up的速度明显要优于top-down。如果要求实时的话可以选择OpenPose。</li>
 </ul>
 
 
