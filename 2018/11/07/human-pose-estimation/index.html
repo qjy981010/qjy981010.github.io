@@ -215,7 +215,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>人体姿态估计（human pose estimation）即人体关键点检测<br><img src="/images/human-pose-estimation/example.jpg" alt="example"></p>
 <h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><p>传统方法都是基于模板匹配的思想</p>
-<p>比如Pictorial Structure，这是一个比较经典的传统思路，主要考虑单元模板以及模板关系。此算法在模板关系中使用弹簧模型，保证模板间的相对关系和灵活性。<br><img src="/images/human-pose-estimation/tradition.jpg" alt="Pictorial Structure"></p>
+<p>比如Pictorial Structure，这是一个比较经典的传统思路，主要考虑单元模板以及模板关系。此算法在模板关系中使用弹簧模型，保证模板间的相对关系和灵活性。<br><img src="/images/human-pose-estimation/traditional.jpg" alt="Pictorial Structure"></p>
 <h2 id="深度学习的-Ground-Truth"><a href="#深度学习的-Ground-Truth" class="headerlink" title="深度学习的 Ground Truth"></a>深度学习的 Ground Truth</h2><p>对于人体骨骼关键点检测的 Ground truth，主要有三种：<br><img src="/images/human-pose-estimation/ground_truth.jpg" alt="ground truth"><br><img src="/images/human-pose-estimation/heatmap+offset.jpg" alt="heatmap + offset"></p>
 <ul>
 <li>Coordinate（坐标点），直接将关键点的坐标作为网络的回归目标。(2015 年之前</li>
@@ -254,7 +254,6 @@
 <li>$L$ 对每个点用一个$\Delta x$和一个$\Delta y$表示其方向向量。</li>
 </ul>
 <p>对于$L$，假设我们要对下图的胳膊提取关键点，两个关键点分别是 $x_{j<em>1,k}$ 和 $x</em>{j<em>2,k}$，其中的k代表第k个人。$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$这条线段两侧一定距离内(这个参数论文没讲怎么设)的点的groud truth，均为$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$的单位向量，其他点值为0。(若多个人的ground truth有重合，则取平均值)<br><img src="/images/human-pose-estimation/arm.png" alt="arm example"><br>在预测时，$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$线段上均匀取m个点，他们每个点预测的L(双线性差值得到)，与$x</em>{j<em>1,k}$到$x</em>{j<em>2,k}$单位向量的乘积之和，即为$x</em>{j<em>1,k}$和$x</em>{j_2,k}$之间的连接权重。</p>
-<p>论文中的公式如下：<br><img src="/images/human-pose-estimation/paf_weight.png" alt="公式"></p>
 <p>下图为模型的主要结构，其中F为图片经过VGG的前10层得到的feature map。模型同样采用multi-stage结构，在每个stage都算一次loss做中继监督。每个stage的输入为上一个stage输出的S、L及F的concat结果。<br><img src="/images/human-pose-estimation/paf.png" alt="PAF"></p>
 <p>现在知道了各个点及他们之间的连接权重，使用二分图匹配的匈牙利算法即可找到最终配对。</p>
 <h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><ul>
